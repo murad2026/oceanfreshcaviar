@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ocean Fresh Caviar — икра с доставкой курьером по Бостону</title>
+<meta name="description" content="Икра с доставкой курьером по Бостону. Только холодовая цепочка, без почтовых отправлений. Бесплатный предзаказ, оплата после связи с вами.">
+<link rel="canonical" href="https://www.oceanfreshcaviar.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ocean Fresh Caviar">
+<meta property="og:description" content="Икра с доставкой курьером по Бостону. Бесплатный предзаказ, оплата после связи.">
+<meta property="og:url" content="https://www.oceanfreshcaviar.com/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%230d1b2a'/><circle cx='12' cy='13' r='3.4' fill='%23d9a441'/><circle cx='20' cy='15' r='3.4' fill='%23c98f36'/><circle cx='15' cy='21' r='3.4' fill='%23e0b45c'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div id="placeholderNotice" class="notice" hidden>
+  <span data-i18n="placeholder.notice"></span>
+</div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="34" height="34"><circle cx="15" cy="16" r="6" fill="#d9a441"/><circle cx="26" cy="19" r="6" fill="#b8801f"/><circle cx="19" cy="27" r="6" fill="#e8c579"/></svg>
+      </span>
+      <span class="brand-text">Ocean Fresh<span> Caviar</span></span>
+    </a>
+    <nav class="nav">
+      <a href="#product" data-i18n="nav.product"></a>
+      <a href="#how" data-i18n="nav.how"></a>
+      <a href="#delivery" data-i18n="nav.delivery"></a>
+      <a href="#faq" data-i18n="nav.faq"></a>
+    </nav>
+    <div class="header-actions">
+      <button id="langBtn" class="lang-btn" type="button" data-i18n="lang.other"></button>
+      <a href="#order" class="btn btn-gold btn-sm" data-i18n="nav.order"></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <p class="eyebrow" data-i18n="hero.eyebrow"></p>
+      <h1 data-i18n="hero.title"></h1>
+      <p class="lead" data-i18n="hero.lead"></p>
+      <div class="hero-cta">
+        <a href="#order" class="btn btn-gold" data-i18n="hero.cta"></a>
+        <a href="#how" class="btn btn-ghost" data-i18n="hero.cta2"></a>
+      </div>
+      <p class="hero-note" data-i18n="hero.note"></p>
+    </div>
+  </section>
+
+  <section id="how" class="section">
+    <div class="wrap">
+      <h2 data-i18n="how.title"></h2>
+      <p class="section-lead" data-i18n="how.lead"></p>
+      <ol class="steps">
+        <li><span class="step-n">1</span><h3 data-i18n="how.1.t"></h3><p data-i18n="how.1.d"></p></li>
+        <li><span class="step-n">2</span><h3 data-i18n="how.2.t"></h3><p data-i18n="how.2.d"></p></li>
+        <li><span class="step-n">3</span><h3 data-i18n="how.3.t"></h3><p data-i18n="how.3.d"></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="product" class="section section-alt">
+    <div class="wrap">
+      <h2 data-i18n="product.title"></h2>
+      <p class="section-lead" data-i18n="product.lead"></p>
+      <p class="section-note" data-i18n="product.note"></p>
+      <div id="productList" class="cards"></div>
+    </div>
+  </section>
+
+  <section id="delivery" class="section cold">
+    <div class="wrap cold-inner">
+      <div class="cold-text">
+        <p class="eyebrow" data-i18n="cold.eyebrow"></p>
+        <h2 data-i18n="cold.title"></h2>
+        <p data-i18n="cold.p1"></p>
+        <p data-i18n="cold.p2"></p>
+        <p class="cold-strong" data-i18n="cold.p3"></p>
+        <p data-i18n="cold.p4"></p>
+      </div>
+      <dl class="cold-facts">
+        <div><dt data-i18n="cold.zone"></dt><dd id="factZone"></dd></div>
+        <div><dt data-i18n="cold.days"></dt><dd id="factDays"></dd></div>
+        <div><dt data-i18n="cold.lead"></dt><dd id="factLead"></dd></div>
+        <div><dt data-i18n="cold.pay"></dt><dd data-i18n="cold.payv"></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="order" class="section">
+    <div class="wrap order-wrap">
+      <h2 data-i18n="order.title"></h2>
+      <p class="section-lead" data-i18n="order.lead"></p>
+
+      <form id="orderForm" class="order-form" novalidate>
+        <div class="cart">
+          <h3 data-i18n="order.items"></h3>
+          <div id="cartList" class="cart-list"></div>
+          <div class="cart-total"><span data-i18n="order.total"></span><strong id="cartTotal">—</strong></div>
+        </div>
+
+        <fieldset class="field">
+          <legend data-i18n="order.type"></legend>
+          <label class="radio"><input type="radio" name="otype" value="buy" checked><span data-i18n="order.type.buy"></span></label>
+          <label class="radio"><input type="radio" name="otype" value="pre"><span data-i18n="order.type.pre"></span></label>
+        </fieldset>
+
+        <div class="grid-2">
+          <label class="field"><span data-i18n="order.name"></span><input type="text" name="name" autocomplete="name" required></label>
+          <label class="field"><span data-i18n="order.phone"></span><input type="tel" name="phone" autocomplete="tel" required></label>
+          <label class="field"><span data-i18n="order.contact"></span>
+            <select name="channel">
+              <option value="WhatsApp">WhatsApp</option>
+              <option value="Phone call">Phone</option>
+              <option value="SMS">SMS</option>
+              <option value="Instagram">Instagram</option>
+            </select>
+          </label>
+          <label class="field"><span data-i18n="order.date"></span><input type="date" name="date"></label>
+          <label class="field field-wide"><span data-i18n="order.address"></span><input type="text" name="address"></label>
+          <label class="field field-wide"><span data-i18n="order.comment"></span><textarea name="comment" rows="3" data-i18n-ph="order.comment.ph"></textarea></label>
+        </div>
+
+        <p id="formError" class="form-error" hidden></p>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-gold" data-i18n="order.submit"></button>
+          <button type="button" id="copyBtn" class="btn btn-ghost" data-i18n="order.copy"></button>
+        </div>
+        <p class="privacy" data-i18n="order.privacy"></p>
+        <p class="alt-contacts"><span data-i18n="order.alt"></span> <span id="altLinks"></span></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq" class="section section-alt">
+    <div class="wrap wrap-narrow">
+      <h2 data-i18n="faq.title"></h2>
+      <div class="faq">
+        <details><summary data-i18n="faq.q1"></summary><p data-i18n="faq.a1"></p></details>
+        <details><summary data-i18n="faq.q2"></summary><p data-i18n="faq.a2"></p></details>
+        <details><summary data-i18n="faq.q3"></summary><p data-i18n="faq.a3"></p></details>
+        <details><summary data-i18n="faq.q4"></summary><p data-i18n="faq.a4"></p></details>
+        <details><summary data-i18n="faq.q5"></summary><p data-i18n="faq.a5"></p></details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <p class="footer-brand">Ocean Fresh Caviar</p>
+      <p class="footer-tagline" data-i18n="footer.tagline"></p>
+    </div>
+    <div id="footerContacts" class="footer-contacts"></div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© <span id="year"></span> Ocean Fresh Caviar. <span data-i18n="footer.rights"></span></span>
+    <span>www.oceanfreshcaviar.com</span>
+  </div>
+</footer>
+
+<a href="#order" class="mobile-cta btn btn-gold" data-i18n="nav.order"></a>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
