@@ -23,7 +23,7 @@ const I18N = {
 
     "hero.eyebrow": "Бостон · доставка курьером",
     "hero.title": "Икра, которая доезжает<br>до вас идеальной",
-    "hero.lead": "Мы не отправляем икру почтой. Каждую банку везёт курьер в холоде, из рук в руки — только так сохраняется вкус, за который её берут.",
+    "hero.lead": "Мы не отправляем икру почтой: каждую банку везёт курьер в холоде, из рук в руки. Только так сохраняется вкус, за который её берут.",
     "hero.cta": "Оформить заказ",
     "hero.cta2": "Икра и цены",
     "hero.note": "Предзаказ — бесплатно и ни к чему не обязывает. Оплата только после того, как мы с вами свяжемся.",
@@ -38,7 +38,7 @@ const I18N = {
     "how.3.d": "Доставляем по Бостону в холодовой упаковке и передаём лично в руки в оговорённое время.",
 
     "product.title": "Икра и цены",
-    "product.lead": "Пять видов, фасовки от 125 граммов до килограмма. Нажмите «+» у нужной строки — она попадёт в заказ.",
+    "product.lead": "Пять видов, банки от 125 граммов до килограмма. Нажмите «+» — строка попадёт в заказ.",
     "product.note": "Килограммовая банка — оптовая позиция: цену и срок подтверждаем при связи. Нужен объём больше — тоже напишите, соберём.",
     "product.wholesale": "Опт",
     "product.ask": "Запросить цену",
@@ -124,7 +124,7 @@ const I18N = {
 
     "hero.eyebrow": "Boston · courier delivery",
     "hero.title": "Caviar that reaches you<br>in perfect condition",
-    "hero.lead": "We don't ship caviar by mail. Every tin travels cold, by courier, hand to hand — that is the only way it keeps the taste you are paying for.",
+    "hero.lead": "We don't ship caviar by mail: every tin travels cold, by courier, hand to hand. That is the only way it keeps the taste you pay for.",
     "hero.cta": "Place an order",
     "hero.cta2": "Caviar & prices",
     "hero.note": "Pre-orders are free and commit you to nothing. You pay only after we've spoken.",
@@ -139,7 +139,7 @@ const I18N = {
     "how.3.d": "We bring it across Boston in cold packaging and hand it to you personally at the agreed time.",
 
     "product.title": "Caviar & prices",
-    "product.lead": "Five kinds, tins from 125 g up to a full kilo. Tap “+” on a row to add it to your order.",
+    "product.lead": "Five kinds, tins from 125 g to a full kilo. Tap “+” to add a row to your order.",
     "product.note": "The 1 kg tin is a wholesale line — we confirm price and timing when we speak. Need more than that? Write to us as well.",
     "product.wholesale": "Wholesale",
     "product.ask": "Request a quote",
