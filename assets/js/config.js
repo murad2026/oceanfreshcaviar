@@ -121,12 +121,12 @@ const CONFIG = {
       en: "Boston and nearby suburbs",
     },
     days: {
-      ru: "TODO: дни и часы доставки",
-      en: "TODO: delivery days and hours",
+      ru: "Любой день недели, в рабочие часы",
+      en: "Any day of the week, during business hours",
     },
     lead: {
-      ru: "TODO: за сколько принимаем заказ (например, за 24 часа)",
-      en: "TODO: order lead time (e.g. 24 hours)",
+      ru: "Круглосуточно — заявку можно оставить в любое время",
+      en: "Round the clock — send a request whenever suits you",
     },
   },
 };

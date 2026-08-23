@@ -47,7 +47,7 @@ const I18N = {
     "cold.p4": "Доставку в другие города и штаты мы разрабатываем. Как только сможем гарантировать температуру на всём пути — обязательно объявим об этом отдельно, здесь и в инстаграме.",
     "cold.zone": "Зона доставки",
     "cold.days": "Дни доставки",
-    "cold.lead": "Срок заказа",
+    "cold.lead": "Приём заказов",
     "cold.pay": "Оплата",
     "cold.payv": "После связи с вами — наличными или переводом. На сайте ничего платить не нужно.",
 
@@ -137,7 +137,7 @@ const I18N = {
     "cold.p4": "Shipping to other cities and states is in the works. The moment we can guarantee the temperature end to end, we'll announce it here and on Instagram.",
     "cold.zone": "Delivery area",
     "cold.days": "Delivery days",
-    "cold.lead": "Order ahead",
+    "cold.lead": "Orders taken",
     "cold.pay": "Payment",
     "cold.payv": "After we contact you — cash or transfer. Nothing is charged on this site.",
 
