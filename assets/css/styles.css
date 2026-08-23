@@ -80,7 +80,7 @@ p{margin:0 0 1em}
 
 /* ---------- hero ---------- */
 .hero{
-  position:relative;padding:clamp(70px,11vw,140px) 0 clamp(56px,8vw,104px);
+  position:relative;padding:clamp(52px,7vw,92px) 0 clamp(44px,6vw,72px);
   background:
     radial-gradient(1000px 480px at 72% -10%,rgba(217,164,65,.16),transparent 62%),
     radial-gradient(700px 400px at 8% 105%,rgba(58,120,150,.16),transparent 60%),

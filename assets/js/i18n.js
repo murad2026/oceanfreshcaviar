@@ -25,7 +25,7 @@ const I18N = {
     "hero.title": "Икра, которая доезжает<br>до вас идеальной",
     "hero.lead": "Мы не отправляем икру почтой. Каждую банку везёт курьер в холоде, из рук в руки — только так сохраняется вкус, за который её берут.",
     "hero.cta": "Оформить заказ",
-    "hero.cta2": "Как это работает",
+    "hero.cta2": "Икра и цены",
     "hero.note": "Предзаказ — бесплатно и ни к чему не обязывает. Оплата только после того, как мы с вами свяжемся.",
 
     "how.title": "Как это работает",
@@ -126,7 +126,7 @@ const I18N = {
     "hero.title": "Caviar that reaches you<br>in perfect condition",
     "hero.lead": "We don't ship caviar by mail. Every tin travels cold, by courier, hand to hand — that is the only way it keeps the taste you are paying for.",
     "hero.cta": "Place an order",
-    "hero.cta2": "How it works",
+    "hero.cta2": "Caviar & prices",
     "hero.note": "Pre-orders are free and commit you to nothing. You pay only after we've spoken.",
 
     "how.title": "How it works",
