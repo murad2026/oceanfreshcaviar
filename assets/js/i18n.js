@@ -2,6 +2,17 @@
 const I18N = {
   ru: {
     "lang.other": "EN",
+    "nav.about": "О нас",
+    "about.eyebrow": "Ocean Fresh",
+    "about.title": "В этом деле с 1997 года",
+    "about.p1": "Под брендом Ocean Fresh мы работаем с икрой без малого тридцать лет. За это время убедились в главном: икра прощает многое, кроме нарушенного холода — одни сутки в тёплом складе, и продукт уже не тот.",
+    "about.p2": "Поэтому мы не отдаём икру почте, а возим сами и отвечаем за каждую банку, которую передаём из рук в руки.",
+    "about.f1.t": "с 1997",
+    "about.f1.d": "почти тридцать лет работы с икрой под одним брендом",
+    "about.f2.t": "сертификаты",
+    "about.f2.d": "продукция сопровождается всеми необходимыми документами — покажем по запросу",
+    "about.f3.t": "Бостон",
+    "about.f3.d": "доставка курьером в холоде, лично в руки",
     "nav.product": "Икра",
     "nav.how": "Как заказать",
     "nav.delivery": "Доставка",
@@ -86,12 +97,23 @@ const I18N = {
     "faq.a5": "Иногда да — зависит от наличия и маршрута курьера. Напишите нам, подскажем по вашей дате.",
 
     "contact.call": "Позвонить",
-    "footer.tagline": "Икра с доставкой курьером по Бостону.",
+    "footer.tagline": "Икра с доставкой курьером по Бостону. С 1997 года.",
     "footer.rights": "Все права защищены.",
   },
 
   en: {
     "lang.other": "RU",
+    "nav.about": "About",
+    "about.eyebrow": "Ocean Fresh",
+    "about.title": "In this business since 1997",
+    "about.p1": "We have worked with caviar under the Ocean Fresh name for close to thirty years. It taught us one thing above all: caviar forgives a lot, but never a broken cold chain — a single day in a warm warehouse and the product is no longer the same.",
+    "about.p2": "That is why we don't hand caviar to the postal service. We carry it ourselves and answer for every tin we place in your hands.",
+    "about.f1.t": "since 1997",
+    "about.f1.d": "close to thirty years with caviar under one name",
+    "about.f2.t": "certified",
+    "about.f2.d": "all required documentation accompanies the product — available on request",
+    "about.f3.t": "Boston",
+    "about.f3.d": "courier delivery in cold packaging, handed to you in person",
     "nav.product": "Caviar",
     "nav.how": "How to order",
     "nav.delivery": "Delivery",
@@ -176,7 +198,7 @@ const I18N = {
     "faq.a5": "Sometimes — it depends on stock and the courier's route. Message us and we'll check your date.",
 
     "contact.call": "Call",
-    "footer.tagline": "Caviar delivered by courier across Boston.",
+    "footer.tagline": "Caviar delivered by courier across Boston. Since 1997.",
     "footer.rights": "All rights reserved.",
   },
 };
