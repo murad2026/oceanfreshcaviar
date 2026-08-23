@@ -142,6 +142,7 @@ p{margin:0 0 1em}
   font:600 1.15rem/1 var(--sans);transition:.2s
 }
 .size-btn:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.size-wholesale{color:#8fb8d8}
 .size-btn.is-pre{background:transparent;color:var(--gold)}
 .size-btn.is-pre:hover{background:rgba(217,164,65,.14)}
 .size-btn.is-on{background:var(--gold);color:#20160a;font-size:1rem}

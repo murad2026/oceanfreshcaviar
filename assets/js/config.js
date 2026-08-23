@@ -28,7 +28,9 @@ const CONFIG = {
      price: 0  -> на сайте «Цена по запросу»
      inStock: true  -> кнопка «Купить»
      inStock: false -> кнопка «Предзаказ бесплатно»
-     ВАЖНО: описания ниже — черновые, проверьте формулировки. */
+     wholesale: true -> строка помечается как оптовая
+     ВАЖНО: описания ниже — черновые, проверьте формулировки.
+     Появятся оптовые цены за килограмм — проставьте их вместо 0. */
   products: [
     {
       id: "paddlefish",
@@ -43,6 +45,7 @@ const CONFIG = {
         { grams: 125,  price: 100, inStock: true },
         { grams: 250,  price: 180, inStock: true },
         { grams: 500,  price: 350, inStock: true },
+        { grams: 1000, price: 0,   inStock: false, wholesale: true },
       ],
     },
     {
@@ -58,6 +61,7 @@ const CONFIG = {
         { grams: 125,  price: 125, inStock: true },
         { grams: 250,  price: 240, inStock: true },
         { grams: 500,  price: 450, inStock: true },
+        { grams: 1000, price: 0,   inStock: false, wholesale: true },
       ],
     },
     {
@@ -73,6 +77,7 @@ const CONFIG = {
         { grams: 125,  price: 240, inStock: true },
         { grams: 250,  price: 430, inStock: true },
         { grams: 500,  price: 800, inStock: true },
+        { grams: 1000, price: 0,   inStock: false, wholesale: true },
       ],
     },
     {
@@ -88,6 +93,7 @@ const CONFIG = {
         { grams: 125,  price: 240, inStock: true },
         { grams: 250,  price: 430, inStock: true },
         { grams: 500,  price: 800, inStock: true },
+        { grams: 1000, price: 0,   inStock: false, wholesale: true },
       ],
     },
     {
@@ -103,6 +109,7 @@ const CONFIG = {
         { grams: 125,  price: 350,  inStock: true },
         { grams: 250,  price: 600,  inStock: true },
         { grams: 500,  price: 1000, inStock: true },
+        { grams: 1000, price: 0,    inStock: false, wholesale: true },
       ],
     },
   ],

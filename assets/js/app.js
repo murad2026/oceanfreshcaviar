@@ -86,12 +86,18 @@
               : "+";
             return `<li class="size-row${inCart ? " is-added" : ""}">
               <span class="size-g">${gramsLabel(v.grams)}${
-                v.inStock ? "" : `<em class="size-pre">${t("product.preorder")}</em>`
+                v.wholesale
+                  ? `<em class="size-pre size-wholesale">${t("product.wholesale")}</em>`
+                  : v.inStock
+                  ? ""
+                  : `<em class="size-pre">${t("product.preorder")}</em>`
               }</span>
               <span class="size-money">${price}</span>
               <button type="button" class="size-btn${inCart ? " is-on" : ""}${
                 v.inStock ? "" : " is-pre"
-              }" data-add="${k}" title="${v.inStock ? t("product.buy") : t("product.pre")}">${label}</button>
+              }" data-add="${k}" title="${
+                v.wholesale ? t("product.ask") : v.inStock ? t("product.buy") : t("product.pre")
+              }">${label}</button>
             </li>`;
           })
           .join("");
@@ -126,7 +132,13 @@
     list.innerHTML = [...cart.entries()]
       .map(([k, i]) => `<div class="cart-row">
           <div class="cart-name">${loc(i.product.name)} · ${gramsLabel(i.variant.grams)}
-            <small>${i.variant.inStock ? t("product.instock") : t("product.preorder")}</small></div>
+            <small>${
+              i.variant.wholesale
+                ? t("product.wholesale") + " · " + t("product.priceOnRequest").toLowerCase()
+                : i.variant.inStock
+                ? t("product.instock")
+                : t("product.preorder")
+            }</small></div>
           <div class="qty">
             <button type="button" data-q="-1" data-k="${k}" aria-label="−">−</button>
             <span>${i.qty}</span>
