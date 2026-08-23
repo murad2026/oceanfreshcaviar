@@ -27,8 +27,8 @@ const I18N = {
     "how.3.d": "Доставляем по Бостону в холодовой упаковке и передаём лично в руки в оговорённое время.",
 
     "product.title": "Икра и цены",
-    "product.lead": "Пять видов и четыре фасовки: 125, 250, 500 граммов и килограммовая банка. Нажмите «+» у нужной строки — она попадёт в заказ.",
-    "product.note": "Килограммовая банка идёт под предзаказ: цену и срок подтверждаем при связи.",
+    "product.lead": "Пять видов, три фасовки. Нажмите «+» у нужной строки — она попадёт в заказ.",
+    "product.note": "Нужен объём больше 500 граммов? Напишите — соберём заказ из нескольких банок.",
     "product.per100": "за 100 г",
     "product.instock": "Есть в наличии",
     "product.preorder": "Под предзаказ",
@@ -115,8 +115,8 @@ const I18N = {
     "how.3.d": "We bring it across Boston in cold packaging and hand it to you personally at the agreed time.",
 
     "product.title": "Caviar & prices",
-    "product.lead": "Five kinds, four tin sizes: 125 g, 250 g, 500 g and a full kilo. Tap “+” on a row to add it to your order.",
-    "product.note": "The 1 kg tin is pre-order only — we confirm the price and timing when we speak.",
+    "product.lead": "Five kinds, three tin sizes. Tap “+” on a row to add it to your order.",
+    "product.note": "Need more than 500 g? Message us and we'll put the order together from several tins.",
     "product.per100": "per 100 g",
     "product.instock": "In stock",
     "product.preorder": "Pre-order",

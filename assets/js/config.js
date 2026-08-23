@@ -28,8 +28,7 @@ const CONFIG = {
      price: 0  -> на сайте «Цена по запросу»
      inStock: true  -> кнопка «Купить»
      inStock: false -> кнопка «Предзаказ бесплатно»
-     ВАЖНО: описания ниже — черновые, проверьте формулировки.
-     Цену за 1 кг проставьте, пока стоит 0. */
+     ВАЖНО: описания ниже — черновые, проверьте формулировки. */
   products: [
     {
       id: "paddlefish",
@@ -44,7 +43,6 @@ const CONFIG = {
         { grams: 125,  price: 100, inStock: true },
         { grams: 250,  price: 180, inStock: true },
         { grams: 500,  price: 350, inStock: true },
-        { grams: 1000, price: 0,   inStock: false },
       ],
     },
     {
@@ -60,7 +58,6 @@ const CONFIG = {
         { grams: 125,  price: 125, inStock: true },
         { grams: 250,  price: 240, inStock: true },
         { grams: 500,  price: 450, inStock: true },
-        { grams: 1000, price: 0,   inStock: false },
       ],
     },
     {
@@ -76,7 +73,6 @@ const CONFIG = {
         { grams: 125,  price: 240, inStock: true },
         { grams: 250,  price: 430, inStock: true },
         { grams: 500,  price: 800, inStock: true },
-        { grams: 1000, price: 0,   inStock: false },
       ],
     },
     {
@@ -92,7 +88,6 @@ const CONFIG = {
         { grams: 125,  price: 240, inStock: true },
         { grams: 250,  price: 430, inStock: true },
         { grams: 500,  price: 800, inStock: true },
-        { grams: 1000, price: 0,   inStock: false },
       ],
     },
     {
@@ -108,7 +103,6 @@ const CONFIG = {
         { grams: 125,  price: 350,  inStock: true },
         { grams: 250,  price: 600,  inStock: true },
         { grams: 500,  price: 1000, inStock: true },
-        { grams: 1000, price: 0,    inStock: false },
       ],
     },
   ],
