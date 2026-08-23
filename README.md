@@ -46,8 +46,7 @@ python3 -m http.server 8000
 ## Публикация
 
 Сайт публикуется на **GitHub Pages** через Actions —
-workflow `.github/workflows/pages.yml` срабатывает на push в `main`
-и в рабочую ветку `claude/caviar-ordering-site-lz14af`.
+workflow `.github/workflows/pages.yml` срабатывает на каждый push в `main`.
 
 Разовая настройка в интерфейсе GitHub:
 
