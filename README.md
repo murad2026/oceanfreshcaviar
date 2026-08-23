@@ -45,17 +45,14 @@ python3 -m http.server 8000
 
 ## Публикация
 
-Сайт публикуется на **GitHub Pages** через Actions —
-workflow `.github/workflows/pages.yml` срабатывает на каждый push в `main`.
+Сайт публикуется на **GitHub Pages** напрямую из ветки `main`:
+Settings → Pages → Source → **Deploy from a branch** → `main` → `/ (root)`.
+Сборки нет — что лежит в репозитории, то и на сайте. Каждый push в `main`
+обновляет сайт за минуту-две.
 
-Разовая настройка в интерфейсе GitHub:
-
-1. **Settings → General → Danger Zone → Change visibility → Public**
-   (на бесплатном тарифе Pages работает только из публичного репозитория).
-2. **Settings → Pages → Source → GitHub Actions**.
-3. **Settings → Pages → Custom domain** → `www.oceanfreshcaviar.com` → Save,
-   затем включить **Enforce HTTPS** (появится через несколько минут, после
-   выпуска сертификата).
+Домен `www.oceanfreshcaviar.com` задан в Settings → Pages → Custom domain и
+продублирован файлом `CNAME` в корне. Файл `.nojekyll` отключает обработку
+Jekyll — нужен, чтобы GitHub отдавал файлы как есть.
 
 DNS у регистратора домена:
 
