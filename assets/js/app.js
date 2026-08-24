@@ -21,6 +21,7 @@
     document.getElementById("factZone").textContent = loc(CONFIG.delivery.zone);
     document.getElementById("factDays").textContent = loc(CONFIG.delivery.days);
     document.getElementById("factLead").textContent = loc(CONFIG.delivery.lead);
+    renderSeason();
     renderProducts();
     renderCart();
     renderContacts();
@@ -37,6 +38,14 @@
   const gramsLabel = (g) =>
     g >= 1000 ? g / 1000 + (lang === "ru" ? " кг" : " kg") : g + (lang === "ru" ? " г" : " g");
   const key = (p, v) => p.id + "-" + v.grams;
+
+  const tins = (n) => {
+    if (lang !== "ru") return n === 1 ? "tin" : "tins";
+    const d = n % 10, h = n % 100;
+    if (d === 1 && h !== 11) return "банка";
+    if (d >= 2 && d <= 4 && (h < 12 || h > 14)) return "банки";
+    return "банок";
+  };
 
   /* ---------- корзина ---------- */
   const cart = new Map(); // key -> {product, variant, qty}
@@ -66,8 +75,36 @@
   const hasUnpriced = () => [...cart.values()].some((i) => !i.variant.price);
   const cartTotal = () => [...cart.values()].reduce((s, i) => s + i.variant.price * i.qty, 0);
 
+  /* ---------- сезон ---------- */
+  function renderSeason() {
+    const box = document.getElementById("seasonBox");
+    const cfg = CONFIG.season || {};
+    if (!cfg.show || !cfg.harvestEnds) {
+      box.hidden = true;
+      return;
+    }
+    box.hidden = false;
+    const end = new Date(cfg.harvestEnds + "T23:59:59");
+    const days = Math.ceil((end - new Date()) / 86400000);
+    const num = document.getElementById("seasonDays");
+    const label = document.getElementById("seasonDaysLabel");
+    if (days > 0) {
+      num.textContent = days;
+      label.textContent = t("season.left");
+    } else {
+      num.textContent = "";
+      label.textContent = t("season.over");
+    }
+    box.classList.toggle("is-over", days <= 0);
+  }
+
   /* ---------- рендер товара ---------- */
   function renderProducts() {
+    CONFIG.products.forEach((p) =>
+      p.variants.forEach((v) => {
+        if (v.stock === 0) v.inStock = false;
+      })
+    );
     const host = document.getElementById("productList");
     host.innerHTML = CONFIG.products
       .map((p) => {
@@ -75,6 +112,12 @@
           .map((v) => {
             const k = key(p, v);
             const inCart = cart.get(k);
+            const stock =
+              v.stock == null
+                ? ""
+                : v.stock > 0
+                ? `<em class="size-left">${t("product.stock")} ${v.stock} ${tins(v.stock)}</em>`
+                : `<em class="size-left is-out">${t("product.soldout")}</em>`;
             const price = v.price
               ? `<span class="size-price">${money(v.price)}</span>
                  <small>${money(Math.round((v.price / v.grams) * 100))} ${t("product.per100")}</small>`
@@ -88,11 +131,11 @@
               <span class="size-g">${gramsLabel(v.grams)}${
                 v.wholesale
                   ? `<em class="size-pre size-wholesale">${t("product.wholesale")}</em>`
-                  : v.inStock
+                  : v.inStock || v.stock === 0
                   ? ""
                   : `<em class="size-pre">${t("product.preorder")}</em>`
               }</span>
-              <span class="size-money">${price}</span>
+              <span class="size-money">${price}${stock}</span>
               <button type="button" class="size-btn${inCart ? " is-on" : ""}${
                 v.inStock ? "" : " is-pre"
               }" data-add="${k}" title="${

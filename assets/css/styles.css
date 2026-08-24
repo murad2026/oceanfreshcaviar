@@ -100,6 +100,35 @@ p{margin:0 0 1em}
 }
 .steps p{color:var(--muted);font-size:.95rem;margin:0}
 
+/* ---------- season ---------- */
+.season{
+  display:flex;gap:28px;align-items:center;justify-content:space-between;
+  border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:4px;
+  background:linear-gradient(90deg,rgba(217,164,65,.09),rgba(217,164,65,.02));
+  padding:22px 26px;margin:0 0 1.6rem
+}
+.season h3{font-size:1.3rem;margin-bottom:.35em}
+.season p{color:#c3cedb;font-size:.95rem;margin:0 0 .6em;max-width:72ch}
+.season-pre{color:var(--gold)!important;margin-bottom:0!important}
+.season-count{
+  flex:0 0 auto;text-align:center;border-left:1px solid var(--line);
+  padding-left:26px;min-width:140px
+}
+.season-count strong{
+  display:block;font-family:var(--serif);font-size:3rem;line-height:1;
+  color:var(--gold);font-weight:500
+}
+.season-count span{
+  display:block;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-top:6px
+}
+.season.is-over .season-count strong{display:none}
+.size-left{
+  display:block;font-style:normal;font-size:.72rem;letter-spacing:.06em;
+  color:#7fcf9a;margin-top:2px
+}
+.size-left.is-out{color:#e08b73}
+
 /* ---------- product ---------- */
 #product{padding-top:clamp(40px,5vw,68px)}
 .cards{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(310px,100%),1fr))}
@@ -238,6 +267,10 @@ textarea{resize:vertical}
   .card{padding:22px 18px}
   .size-g{flex:0 0 74px}
   .cart,.cold-facts{padding:18px}
+  .season{flex-direction:column;align-items:flex-start;gap:16px;padding:20px}
+  .season-count{border-left:0;padding-left:0;text-align:left;display:flex;align-items:baseline;gap:10px}
+  .season-count strong{font-size:2.1rem}
+  .season-count span{margin-top:0}
   .cart-total{flex-direction:column;align-items:flex-start;gap:4px}
   .cart-total strong{font-size:1.1rem}
   .header-actions .btn{display:none}
