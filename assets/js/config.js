@@ -128,16 +128,16 @@ const CONFIG = {
   /* ---------- 6. ДОСТАВКА ---------- */
   delivery: {
     zone: {
-      ru: "Бостон и ближайшие пригороды",   // TODO: уточнить список городов
-      en: "Boston and nearby suburbs",
+      ru: "Доставка бесплатно, курьером из рук в руки",
+      en: "Free delivery, by courier, hand to hand",
     },
     days: {
-      ru: "Любой день недели, в рабочие часы",
-      en: "Any day of the week, during business hours",
+      ru: "До трёх дней с момента подтверждения заказа",
+      en: "Within three days of order confirmation",
     },
     lead: {
-      ru: "Круглосуточно — заявку можно оставить в любое время",
-      en: "Round the clock — send a request whenever suits you",
+      ru: "Отправка в термоупаковке; стоимость назовём при подтверждении",
+      en: "Shipped in insulated packaging; cost quoted at confirmation",
     },
   },
 };
