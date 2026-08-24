@@ -21,12 +21,6 @@ const I18N = {
 
     "placeholder.notice": "Внимание: цены на сайте — временные заглушки. Замените их в assets/js/config.js.",
 
-    "hero.eyebrow": "Бостон · доставка курьером",
-    "hero.title": "Икра, которая доезжает<br>до вас идеальной",
-    "hero.lead": "Мы не отправляем икру почтой: каждую банку везёт курьер в холоде, из рук в руки. Только так сохраняется вкус, за который её берут.",
-    "hero.cta": "Оформить заказ",
-    "hero.cta2": "Икра и цены",
-    "hero.note": "Предзаказ — бесплатно и ни к чему не обязывает. Оплата только после того, как мы с вами свяжемся.",
 
     "how.title": "Как это работает",
     "how.lead": "Три шага, никакой предоплаты на сайте.",
@@ -122,12 +116,6 @@ const I18N = {
 
     "placeholder.notice": "Heads up: prices on this site are placeholders. Replace them in assets/js/config.js.",
 
-    "hero.eyebrow": "Boston · courier delivery",
-    "hero.title": "Caviar that reaches you<br>in perfect condition",
-    "hero.lead": "We don't ship caviar by mail: every tin travels cold, by courier, hand to hand. That is the only way it keeps the taste you pay for.",
-    "hero.cta": "Place an order",
-    "hero.cta2": "Caviar & prices",
-    "hero.note": "Pre-orders are free and commit you to nothing. You pay only after we've spoken.",
 
     "how.title": "How it works",
     "how.lead": "Three steps, and no prepayment on the site.",

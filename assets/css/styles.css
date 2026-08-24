@@ -78,24 +78,6 @@ p{margin:0 0 1em}
 .btn-ghost{border-color:var(--line);color:var(--text);background:transparent}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
 
-/* ---------- hero ---------- */
-.hero{
-  position:relative;padding:clamp(30px,4vw,48px) 0 clamp(26px,3.4vw,40px);
-  background:
-    radial-gradient(900px 380px at 74% -30%,rgba(217,164,65,.15),transparent 62%),
-    radial-gradient(620px 320px at 6% 120%,rgba(58,120,150,.14),transparent 60%),
-    var(--ink);
-  border-bottom:1px solid var(--line-soft)
-}
-.hero-inner{max-width:900px}
-.hero h1{font-size:clamp(1.75rem,3.4vw,2.7rem);margin-bottom:.35em}
-.hero .lead{font-size:clamp(.98rem,1.4vw,1.08rem);color:#c8d2de;max-width:64ch;margin-bottom:1.2rem}
-.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0}
-.hero-note{
-  font-size:.84rem;color:var(--muted);max-width:44ch;margin:0;
-  border-left:2px solid var(--gold);padding-left:12px
-}
-
 /* ---------- about ---------- */
 .about-inner{display:grid;gap:44px;grid-template-columns:1.4fr 1fr;align-items:start}
 .about-text p{color:#c3cedb}
@@ -119,7 +101,7 @@ p{margin:0 0 1em}
 .steps p{color:var(--muted);font-size:.95rem;margin:0}
 
 /* ---------- product ---------- */
-#product{padding-top:clamp(34px,4vw,56px)}
+#product{padding-top:clamp(40px,5vw,68px)}
 .cards{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(310px,100%),1fr))}
 .card{
   background:var(--ink);border:1px solid var(--line-soft);border-radius:4px;
