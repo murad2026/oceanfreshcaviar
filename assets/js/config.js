@@ -117,7 +117,20 @@ const CONFIG = {
     },
   ],
 
-  /* ---------- 5. СЕЗОН ----------
+  /* ---------- 5. ОПЛАТА КАРТОЙ ----------
+     enabled: true включает кнопку «Оплатить картой» в блоке заказа.
+     links — ссылки Stripe Payment Link по ключу «товар-граммы».
+     Онлайн-оплата рассчитана на доставку внутри I-495, где она бесплатна;
+     за пределами зоны доставку сначала считаем по адресу. */
+  payments: {
+    enabled: false,
+    links: {
+      // "paddlefish-125": "https://buy.stripe.com/...",
+      // "paddlefish-250": "https://buy.stripe.com/...",
+    },
+  },
+
+  /* ---------- 6. СЕЗОН ----------
      harvestEnds — дата окончания сбора (ГГГГ-ММ-ДД). Обратный отсчёт
      на сайте считается сам. show: false — блок скрыть. */
   season: {
@@ -125,19 +138,19 @@ const CONFIG = {
     harvestEnds: "2026-10-20",
   },
 
-  /* ---------- 6. ДОСТАВКА ---------- */
+  /* ---------- 7. ДОСТАВКА ---------- */
   delivery: {
     zone: {
-      ru: "Доставка бесплатно, курьером из рук в руки",
-      en: "Free delivery, by courier, hand to hand",
+      ru: "Внутри кольца I-495 — бесплатно, курьером из рук в руки",
+      en: "Inside the I-495 belt — free, by courier, hand to hand",
     },
     days: {
-      ru: "До трёх дней с момента подтверждения заказа",
-      en: "Within three days of order confirmation",
+      ru: "До трёх дней, возим в любой день недели",
+      en: "Within three days, any day of the week",
     },
     lead: {
-      ru: "Отправка в термоупаковке; стоимость назовём при подтверждении",
-      en: "Shipped in insulated packaging; cost quoted at confirmation",
+      ru: "Отправка в термоупаковке, стоимость считаем по адресу",
+      en: "Shipped insulated, cost calculated for your address",
     },
   },
 };

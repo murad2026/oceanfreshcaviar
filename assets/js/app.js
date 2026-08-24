@@ -170,6 +170,7 @@
     if (!cart.size) {
       list.innerHTML = `<p class="cart-empty">${t("order.empty")}</p>`;
       total.textContent = "—";
+      renderPay();
       return;
     }
     list.innerHTML = [...cart.entries()]
@@ -199,6 +200,30 @@
       : sum
       ? money(sum) + " + " + t("product.priceOnRequest").toLowerCase()
       : t("product.priceOnRequest");
+    renderPay();
+  }
+
+  /* ---------- оплата картой ---------- */
+  function renderPay() {
+    const btn = document.getElementById("payBtn");
+    const hint = document.getElementById("payHint");
+    const cfg = CONFIG.payments || {};
+    if (!cfg.enabled || !cart.size) {
+      btn.hidden = true;
+      hint.hidden = true;
+      return;
+    }
+    const items = [...cart.entries()];
+    const link = items.length === 1 ? (cfg.links || {})[items[0][0]] : null;
+    if (link) {
+      btn.href = link;
+      btn.hidden = false;
+      hint.textContent = t("order.payHint");
+    } else {
+      btn.hidden = true;
+      hint.textContent = t("order.payMulti");
+    }
+    hint.hidden = false;
   }
 
   /* ---------- текст заказа ---------- */
