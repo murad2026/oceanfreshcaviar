@@ -23,6 +23,7 @@
     document.getElementById("factLead").textContent = loc(CONFIG.delivery.lead);
     renderSeason();
     renderProducts();
+    renderCompare();
     renderCart();
     renderContacts();
     localStorage.setItem("ofc-lang", lang);
@@ -101,6 +102,43 @@
   /* ---------- рендер товара ---------- */
   const CATEGORIES = ["black", "red"];
 
+  /* Круглый образец икры: икринки настоящего размера и цвета.
+     Раскладка детерминированная — картинка не «прыгает» при перерисовке. */
+  function grainAvatar(p) {
+    const g = p.grain;
+    if (!g) return "";
+    const R = 50;                       // радиус круга в единицах viewBox
+    const r = Math.max(3, g.mm * 2.1);  // радиус икринки: 3 мм -> ~6.3
+    const step = r * 1.86;
+    let seed = [...p.id].reduce((a, c) => a + c.charCodeAt(0), 0);
+    const rnd = () => ((seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
+    let eggs = "";
+    for (let y = -R; y <= R; y += step * 0.88) {
+      for (let x = -R; x <= R; x += step) {
+        const cx = x + (rnd() - 0.5) * step * 0.5 + ((Math.round(y / step) % 2) * step) / 2;
+        const cy = y + (rnd() - 0.5) * step * 0.4;
+        if (Math.hypot(cx, cy) > R + r * 0.35) continue;
+        const rr = r * (0.86 + rnd() * 0.28);
+        eggs += `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${rr.toFixed(1)}" fill="url(#g-${p.id})"/>`;
+      }
+    }
+    return `<svg class="avatar" viewBox="-50 -50 100 100" role="img" aria-label="${loc(p.name)}">
+        <defs>
+          <radialGradient id="g-${p.id}" cx="34%" cy="30%" r="72%">
+            <stop offset="0%" stop-color="${g.light}"/>
+            <stop offset="52%" stop-color="${g.base}"/>
+            <stop offset="100%" stop-color="#0b0f16"/>
+          </radialGradient>
+          <clipPath id="c-${p.id}"><circle cx="0" cy="0" r="50"/></clipPath>
+        </defs>
+        <g clip-path="url(#c-${p.id})">
+          <circle cx="0" cy="0" r="50" fill="#11151d"/>
+          ${eggs}
+        </g>
+        <circle cx="0" cy="0" r="49" fill="none" stroke="rgba(217,164,65,.35)"/>
+      </svg>`;
+  }
+
   function cardHtml(p) {
     const rows = p.variants
       .map((v) => {
@@ -140,10 +178,19 @@
       })
       .join("");
     const origin = loc(p.origin) ? `<p class="card-origin">${loc(p.origin)}</p>` : "";
+    const grain = p.grain
+      ? `<p class="card-grain">${t("product.grain")} ${String(p.grain.mm).replace(".", lang === "ru" ? "," : ".")} ${t("product.mm")}</p>`
+      : "";
     return `<article class="card">
-        <span class="tag tag-pre">${loc(p.badge)}</span>
-        <h3>${loc(p.name)}</h3>
-        ${origin}
+        <div class="card-top">
+          ${grainAvatar(p)}
+          <div class="card-id">
+            <span class="tag tag-pre">${loc(p.badge)}</span>
+            <h3>${loc(p.name)}</h3>
+            ${origin}
+            ${grain}
+          </div>
+        </div>
         <p class="card-desc">${loc(p.description)}</p>
         <ul class="sizes">${rows}</ul>
       </article>`;
@@ -180,6 +227,44 @@
             if (key(p, v) === btn.dataset.add) addToCart(p, v);
       });
     });
+  }
+
+  /* ---------- сравнение ---------- */
+  function renderCompare() {
+    const rows = CATEGORIES.flatMap((cat) => {
+      const items = CONFIG.products.filter((p) => (p.category || "black") === cat);
+      if (!items.length) return [];
+      return [
+        `<tr class="cmp-cat"><th colspan="6">${t("cat." + cat)}</th></tr>`,
+        ...items.map((p) => {
+          const cheapest = p.variants
+            .filter((v) => v.price)
+            .sort((a, b) => a.price / a.grams - b.price / b.grams)[0];
+          const pr = cheapest
+            ? `${money(Math.round((cheapest.price / cheapest.grams) * 100))} <small>${t("product.per100")}</small>`
+            : "—";
+          const pf = p.profile || {};
+          return `<tr>
+            <td data-l="${t("compare.h.kind")}">
+              <span class="cmp-kind">${grainAvatar(p)}<span>${loc(p.name)}<small>${loc(p.origin)}</small></span></span>
+            </td>
+            <td data-l="${t("compare.h.grain")}" class="cmp-num">${
+              p.grain ? String(p.grain.mm).replace(".", lang === "ru" ? "," : ".") + " " + t("product.mm") : "—"
+            }</td>
+            <td data-l="${t("compare.h.color")}">${loc(pf.color)}</td>
+            <td data-l="${t("compare.h.taste")}">${loc(pf.taste)}</td>
+            <td data-l="${t("compare.h.best")}">${loc(pf.best)}</td>
+            <td data-l="${t("compare.h.price")}" class="cmp-num">${pr}</td>
+          </tr>`;
+        }),
+      ];
+    });
+    document.getElementById("compareTable").innerHTML =
+      `<thead><tr>
+         <th>${t("compare.h.kind")}</th><th>${t("compare.h.grain")}</th>
+         <th>${t("compare.h.color")}</th><th>${t("compare.h.taste")}</th>
+         <th>${t("compare.h.best")}</th><th>${t("compare.h.price")}</th>
+       </tr></thead><tbody>${rows.join("")}</tbody>`;
   }
 
   /* ---------- рендер корзины ---------- */

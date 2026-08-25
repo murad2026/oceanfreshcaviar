@@ -37,6 +37,12 @@ const CONFIG = {
   products: [
     {
       id: "paddlefish",
+      profile: {
+        color: { ru: "стально-серый", en: "steel grey" },
+        taste: { ru: "мягкий, чуть землистый, без резкости", en: "soft, faintly earthy, no sharp edge" },
+        best:  { ru: "первое знакомство и большие компании", en: "a first taste, and feeding a crowd" },
+      },
+      grain: { mm: 2.8, base: "#4a5058", light: "#868e97" },
       category: "black",
       name: { ru: "Паддлфиш", en: "Paddlefish" },
       origin: { ru: "ферма, Теннесси, США", en: "farmed, Tennessee, USA" },
@@ -54,6 +60,12 @@ const CONFIG = {
     },
     {
       id: "hackleback",
+      profile: {
+        color: { ru: "тёмно-серый, почти чёрный", en: "dark grey, nearly black" },
+        taste: { ru: "насыщенный, ореховый, с морской нотой", en: "rich and nutty with a note of the sea" },
+        best:  { ru: "тех, кто любит яркий вкус", en: "those who like a bold flavour" },
+      },
+      grain: { mm: 2.3, base: "#2c2d31", light: "#6a6c72" },
       category: "black",
       name: { ru: "Хаклбэк", en: "Hackleback" },
       origin: { ru: "дикая, США", en: "wild, USA" },
@@ -71,6 +83,12 @@ const CONFIG = {
     },
     {
       id: "kaluga",
+      profile: {
+        color: { ru: "тёмно-серый с бронзой", en: "dark grey with bronze" },
+        taste: { ru: "сливочный, мягкий, с длинным послевкусием", en: "creamy and soft with a long finish" },
+        best:  { ru: "повод, когда хочется белугу", en: "when you want beluga, at a fair price" },
+      },
+      grain: { mm: 3.4, base: "#4c463d", light: "#8d8375" },
       category: "black",
       name: { ru: "Калуга", en: "Kaluga Sturgeon" },
       origin: { ru: "ферма, импорт", en: "farmed, imported" },
@@ -88,6 +106,12 @@ const CONFIG = {
     },
     {
       id: "white-sturgeon",
+      profile: {
+        color: { ru: "серо-коричневый", en: "grey-brown" },
+        taste: { ru: "чистый ореховый со сливочной ноткой", en: "clean and nutty with a creamy note" },
+        best:  { ru: "универсальный выбор к столу", en: "an all-round choice for the table" },
+      },
+      grain: { mm: 3.1, base: "#4f4638", light: "#918570" },
       category: "black",
       name: { ru: "Белый осётр", en: "White Sturgeon" },
       origin: { ru: "ферма, Калифорния, США", en: "farmed, California, USA" },
@@ -105,6 +129,12 @@ const CONFIG = {
     },
     {
       id: "siberian",
+      profile: {
+        color: { ru: "тёмно-коричневый", en: "dark brown" },
+        taste: { ru: "сливочно-ореховый, классический", en: "creamy-nutty, the classic profile" },
+        best:  { ru: "тех, кто знает, чего ждёт", en: "people who know what they expect" },
+      },
+      grain: { mm: 2.9, base: "#3d352c", light: "#7d7263" },
       category: "black",
       name: { ru: "Сибирский осётр", en: "Siberian Sturgeon" },
       origin: { ru: "импорт", en: "overseas" },
@@ -122,6 +152,12 @@ const CONFIG = {
     },
     {
       id: "beluga-hybrid",
+      profile: {
+        color: { ru: "светло-серый", en: "light grey" },
+        taste: { ru: "мягкий, деликатный, сливочный", en: "mild, delicate, buttery" },
+        best:  { ru: "подарок и красивую подачу", en: "gifting and a striking presentation" },
+      },
+      grain: { mm: 3.5, base: "#61605c", light: "#9d9c96" },
       category: "black",
       name: { ru: "Белуга-гибрид", en: "Beluga Hybrid" },
       origin: { ru: "ферма, Флорида, США", en: "farmed, Florida, USA" },
@@ -139,6 +175,12 @@ const CONFIG = {
     },
     {
       id: "velvet",
+      profile: {
+        color: { ru: "тёмный с отливом", en: "dark with a sheen" },
+        taste: { ru: "бархатная текстура, долгий сливочный финиш", en: "velvety texture, a long creamy finish" },
+        best:  { ru: "особенный случай", en: "a special occasion" },
+      },
+      grain: { mm: 3.6, base: "#39393f", light: "#7e7d86" },
       category: "black",
       name: { ru: "Бархатная", en: "Velvet" },
       origin: { ru: "импорт", en: "overseas" },
@@ -156,6 +198,12 @@ const CONFIG = {
     },
     {
       id: "chum",
+      profile: {
+        color: { ru: "янтарно-оранжевый", en: "amber orange" },
+        taste: { ru: "чистый, умеренно солёный, без горечи", en: "clean, moderately salted, no bitterness" },
+        best:  { ru: "блины, бутерброды, стол на праздник", en: "blini, toast, a holiday table" },
+      },
+      grain: { mm: 5.5, base: "#d9541f", light: "#f7a066" },
       category: "red",
       name: { ru: "Кета", en: "Chum Salmon" },
       origin: { ru: "ферма, Аляска, США", en: "farmed, Alaska, USA" },
@@ -174,6 +222,12 @@ const CONFIG = {
     },
     {
       id: "gold-chum",
+      profile: {
+        color: { ru: "золотисто-оранжевый", en: "golden orange" },
+        taste: { ru: "слабосолёный, тонкая оболочка, тает во рту", en: "lightly salted, soft shell, melts away" },
+        best:  { ru: "тех, кто ищет красную икру покрупнее", en: "anyone after larger salmon roe" },
+      },
+      grain: { mm: 6.2, base: "#e8801f", light: "#ffc078" },
       category: "red",
       name: { ru: "Золотая кета", en: "Gold Chum" },
       origin: { ru: "дикая, Аляска, США", en: "wild, Alaska, USA" },
@@ -189,6 +243,12 @@ const CONFIG = {
     },
     {
       id: "pink",
+      profile: {
+        color: { ru: "светло-оранжевый", en: "light orange" },
+        taste: { ru: "мягкий, нежное зерно, негустой посол", en: "mild, tender grain, a light cure" },
+        best:  { ru: "повседневный стол", en: "an everyday table" },
+      },
+      grain: { mm: 4.2, base: "#e2703a", light: "#f9b48c" },
       category: "red",
       name: { ru: "Горбуша", en: "Pink Salmon" },
       origin: { ru: "дикая, Аляска или импорт", en: "wild, Alaska or imported" },
