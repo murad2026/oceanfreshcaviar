@@ -168,11 +168,15 @@ p{margin:0 0 1em}
 }
 .size-row.is-added{background:rgba(217,164,65,.05)}
 .size-g{
-  flex:0 0 84px;font-family:var(--serif);font-size:1.22rem;line-height:1.1;
+  flex:0 0 106px;font-family:var(--serif);font-size:1.22rem;line-height:1.1;
   display:flex;flex-direction:column
 }
+.size-sub{
+  font:400 .68rem/1.35 var(--sans);color:var(--muted);
+  font-style:normal;margin-top:3px
+}
 .size-pre{
-  font:400 .62rem/1.4 var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  font:400 .6rem/1.35 var(--sans);letter-spacing:.07em;text-transform:uppercase;
   color:var(--gold);font-style:normal
 }
 .size-money{flex:1;display:flex;flex-direction:column;line-height:1.25}
@@ -280,7 +284,7 @@ textarea{resize:vertical}
 @media (max-width:640px){
   .grid-2{grid-template-columns:1fr}
   .card{padding:22px 18px}
-  .size-g{flex:0 0 74px}
+  .size-g{flex:0 0 92px}
   .cart,.cold-facts{padding:18px}
   .season{flex-direction:column;align-items:flex-start;gap:16px;padding:20px}
   .season-count{border-left:0;padding-left:0;text-align:left;display:flex;align-items:baseline;gap:10px}

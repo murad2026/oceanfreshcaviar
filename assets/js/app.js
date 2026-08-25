@@ -117,7 +117,13 @@
              <small>${money(Math.round((v.price / v.grams) * 100))} ${t("product.per100")}</small>`
           : `<span class="size-price size-ask">${t("product.priceOnRequest")}</span><small>&nbsp;</small>`;
         return `<li class="size-row${inCart ? " is-added" : ""}">
-          <span class="size-g">${gramsLabel(v.grams)}${
+          <span class="size-g">${
+            v.unit
+              ? `${v.unit}<em class="size-sub">${gramsLabel(v.grams)}${
+                  v.pack ? " · " + loc(v.pack) : ""
+                }</em>`
+              : gramsLabel(v.grams)
+          }${
             v.wholesale
               ? `<em class="size-pre size-wholesale">${t("product.wholesale")}</em>`
               : v.inStock || v.stock === 0

@@ -73,7 +73,7 @@ const CONFIG = {
       id: "kaluga",
       category: "black",
       name: { ru: "Калуга", en: "Kaluga Sturgeon" },
-      origin: { ru: "", en: "" },   // TODO: происхождение (ферма, страна)
+      origin: { ru: "ферма, импорт", en: "farmed, imported" },
       badge: { ru: "Крупное зерно", en: "Large grain" },
       description: {
         ru: "Крупное зерно и мягкий сливочный вкус с долгим послевкусием. Калугу часто ставят рядом с белугой — по размеру икринки и характеру она к ней ближе всего.",
@@ -152,6 +152,57 @@ const CONFIG = {
         { grams: 250,  price: 550,  inStock: true },
         { grams: 500,  price: 1000, inStock: true },
         { grams: 1000, price: 0,    inStock: false, wholesale: true },
+      ],
+    },
+    {
+      id: "chum",
+      category: "red",
+      name: { ru: "Кета", en: "Chum Salmon" },
+      origin: { ru: "ферма, Аляска, США", en: "farmed, Alaska, USA" },
+      badge: { ru: "Аляска", en: "Alaska" },
+      description: {
+        ru: "Ровное янтарное зерно среднего размера и чистый вкус без горечи. Та самая красная икра, которую ждут на столе — к блинам, на бутерброды и в подарок.",
+        en: "Even, amber, medium-sized grain and a clean taste with no bitterness. The red caviar people expect on the table — for blini, for toast, for gifting.",
+      },
+      variants: [
+        { grams: 113, unit: "4 oz",  price: 25, inStock: true,
+          pack: { ru: "стекло", en: "glass" } },
+        { grams: 225, unit: "8 oz",  price: 45, inStock: true },
+        { grams: 454, unit: "1 lb",  price: 85, inStock: true,
+          pack: { ru: "лоток", en: "tray" } },
+      ],
+    },
+    {
+      id: "gold-chum",
+      category: "red",
+      name: { ru: "Золотая кета", en: "Gold Chum" },
+      origin: { ru: "дикая, Аляска, США", en: "wild, Alaska, USA" },
+      badge: { ru: "Крупное зерно", en: "Large eggs" },
+      description: {
+        ru: "Крупное золотистое зерно, слабый посол и тонкая оболочка — икра лопается легко и тает во рту. Дикий тихоокеанский лосось с Аляски.",
+        en: "Large golden eggs, a light cure and a soft shell — they burst easily and melt in the mouth. Wild Pacific salmon from Alaska.",
+      },
+      variants: [
+        { grams: 500, unit: "1.1 lb", price: 100, inStock: true,
+          pack: { ru: "лоток", en: "tray" } },
+      ],
+    },
+    {
+      id: "pink",
+      category: "red",
+      name: { ru: "Горбуша", en: "Pink Salmon" },
+      origin: { ru: "дикая, Аляска или импорт", en: "wild, Alaska or imported" },
+      badge: { ru: "Дикая", en: "Wild" },
+      description: {
+        ru: "Зерно помельче и понежнее, чем у кеты, вкус мягкий и не солёный. Дикая рыба. Сейчас позиции нет в наличии — оставьте бесплатный предзаказ, сообщим, как появится.",
+        en: "Smaller, softer grain than chum and a mild, gently salted taste. Wild fish. Out of stock at the moment — leave a free pre-order and we'll tell you when it lands.",
+      },
+      variants: [
+        { grams: 113, unit: "4 oz", price: 22, inStock: false,
+          pack: { ru: "стекло", en: "glass" } },
+        { grams: 225, unit: "8 oz", price: 40, inStock: false },
+        { grams: 454, unit: "1 lb", price: 75, inStock: false,
+          pack: { ru: "лоток", en: "tray" } },
       ],
     },
   ],
