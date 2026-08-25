@@ -131,6 +131,20 @@ p{margin:0 0 1em}
 .size-left.is-out{color:#e08b73}
 
 /* ---------- product ---------- */
+.cat + .cat{margin-top:clamp(38px,5vw,60px)}
+.cat-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;
+  padding-bottom:12px;margin-bottom:22px;border-bottom:1px solid var(--line)
+}
+.cat-head h3{
+  font-size:clamp(1.4rem,2.4vw,1.9rem);margin:0;
+  letter-spacing:.01em
+}
+.cat-head p{color:var(--muted);font-size:.9rem;margin:0}
+.cat-soon{
+  color:var(--muted);font-size:.95rem;margin:0;
+  border-left:2px solid var(--gold);padding-left:16px;max-width:62ch
+}
 #product{padding-top:clamp(40px,5vw,68px)}
 .cards{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(310px,100%),1fr))}
 .card{

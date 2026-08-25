@@ -99,6 +99,50 @@
   }
 
   /* ---------- рендер товара ---------- */
+  const CATEGORIES = ["black", "red"];
+
+  function cardHtml(p) {
+    const rows = p.variants
+      .map((v) => {
+        const k = key(p, v);
+        const inCart = cart.get(k);
+        const stock =
+          v.stock == null
+            ? ""
+            : v.stock > 0
+            ? `<em class="size-left">${t("product.stock")} ${v.stock} ${tins(v.stock)}</em>`
+            : `<em class="size-left is-out">${t("product.soldout")}</em>`;
+        const price = v.price
+          ? `<span class="size-price">${money(v.price)}</span>
+             <small>${money(Math.round((v.price / v.grams) * 100))} ${t("product.per100")}</small>`
+          : `<span class="size-price size-ask">${t("product.priceOnRequest")}</span><small>&nbsp;</small>`;
+        return `<li class="size-row${inCart ? " is-added" : ""}">
+          <span class="size-g">${gramsLabel(v.grams)}${
+            v.wholesale
+              ? `<em class="size-pre size-wholesale">${t("product.wholesale")}</em>`
+              : v.inStock || v.stock === 0
+              ? ""
+              : `<em class="size-pre">${t("product.preorder")}</em>`
+          }</span>
+          <span class="size-money">${price}${stock}</span>
+          <button type="button" class="size-btn${inCart ? " is-on" : ""}${
+            v.wholesale ? " is-pre" : ""
+          }" data-add="${k}" title="${
+            v.wholesale ? t("product.ask") : v.inStock ? t("product.buy") : t("product.pre")
+          }">${inCart ? inCart.qty : "+"}</button>
+        </li>`;
+      })
+      .join("");
+    const origin = loc(p.origin) ? `<p class="card-origin">${loc(p.origin)}</p>` : "";
+    return `<article class="card">
+        <span class="tag tag-pre">${loc(p.badge)}</span>
+        <h3>${loc(p.name)}</h3>
+        ${origin}
+        <p class="card-desc">${loc(p.description)}</p>
+        <ul class="sizes">${rows}</ul>
+      </article>`;
+  }
+
   function renderProducts() {
     CONFIG.products.forEach((p) =>
       p.variants.forEach((v) => {
@@ -106,53 +150,22 @@
       })
     );
     const host = document.getElementById("productList");
-    host.innerHTML = CONFIG.products
-      .map((p) => {
-        const rows = p.variants
-          .map((v) => {
-            const k = key(p, v);
-            const inCart = cart.get(k);
-            const stock =
-              v.stock == null
-                ? ""
-                : v.stock > 0
-                ? `<em class="size-left">${t("product.stock")} ${v.stock} ${tins(v.stock)}</em>`
-                : `<em class="size-left is-out">${t("product.soldout")}</em>`;
-            const price = v.price
-              ? `<span class="size-price">${money(v.price)}</span>
-                 <small>${money(Math.round((v.price / v.grams) * 100))} ${t("product.per100")}</small>`
-              : `<span class="size-price size-ask">${t("product.priceOnRequest")}</span><small>&nbsp;</small>`;
-            const label = inCart
-              ? inCart.qty
-              : v.inStock
-              ? "+"
-              : "+";
-            return `<li class="size-row${inCart ? " is-added" : ""}">
-              <span class="size-g">${gramsLabel(v.grams)}${
-                v.wholesale
-                  ? `<em class="size-pre size-wholesale">${t("product.wholesale")}</em>`
-                  : v.inStock || v.stock === 0
-                  ? ""
-                  : `<em class="size-pre">${t("product.preorder")}</em>`
-              }</span>
-              <span class="size-money">${price}${stock}</span>
-              <button type="button" class="size-btn${inCart ? " is-on" : ""}${
-                v.inStock ? "" : " is-pre"
-              }" data-add="${k}" title="${
-                v.wholesale ? t("product.ask") : v.inStock ? t("product.buy") : t("product.pre")
-              }">${label}</button>
-            </li>`;
-          })
-          .join("");
-        return `<article class="card">
-            <span class="tag tag-pre">${loc(p.badge)}</span>
-            <h3>${loc(p.name)}</h3>
-            <p class="card-origin">${loc(p.origin)}</p>
-            <p class="card-desc">${loc(p.description)}</p>
-            <ul class="sizes">${rows}</ul>
-          </article>`;
-      })
-      .join("");
+    host.innerHTML = CATEGORIES.map((cat) => {
+      const items = CONFIG.products.filter((p) => (p.category || "black") === cat);
+      const body = items.length
+        ? `<div class="cards">${items.map(cardHtml).join("")}</div>`
+        : cat === "red"
+        ? `<p class="cat-soon">${t("cat.red.soon")}</p>`
+        : "";
+      if (!body) return "";
+      return `<section class="cat">
+          <div class="cat-head">
+            <h3>${t("cat." + cat)}</h3>
+            <p>${t("cat." + cat + ".d")}</p>
+          </div>
+          ${body}
+        </section>`;
+    }).join("");
 
     host.querySelectorAll("[data-add]").forEach((btn) => {
       btn.addEventListener("click", () => {

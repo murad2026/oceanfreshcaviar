@@ -37,6 +37,7 @@ const CONFIG = {
   products: [
     {
       id: "paddlefish",
+      category: "black",
       name: { ru: "Паддлфиш", en: "Paddlefish" },
       origin: { ru: "ферма, Теннесси, США", en: "farmed, Tennessee, USA" },
       badge: { ru: "Мягкий вход", en: "Entry level" },
@@ -53,6 +54,7 @@ const CONFIG = {
     },
     {
       id: "hackleback",
+      category: "black",
       name: { ru: "Хаклбэк", en: "Hackleback" },
       origin: { ru: "дикая, США", en: "wild, USA" },
       badge: { ru: "Дикая американская", en: "Wild American" },
@@ -68,7 +70,42 @@ const CONFIG = {
       ],
     },
     {
+      id: "kaluga",
+      category: "black",
+      name: { ru: "Калуга", en: "Kaluga Sturgeon" },
+      origin: { ru: "", en: "" },   // TODO: происхождение (ферма, страна)
+      badge: { ru: "Крупное зерно", en: "Large grain" },
+      description: {
+        ru: "Крупное зерно и мягкий сливочный вкус с долгим послевкусием. Калугу часто ставят рядом с белугой — по размеру икринки и характеру она к ней ближе всего.",
+        en: "Large grain and a soft, creamy taste with a long finish. Kaluga is often put next to beluga — in grain size and character it is the closest thing to it.",
+      },
+      variants: [
+        { grams: 125,  price: 150, inStock: true },
+        { grams: 250,  price: 280, inStock: true },
+        { grams: 500,  price: 500, inStock: true },
+        { grams: 1000, price: 0,   inStock: false, wholesale: true },
+      ],
+    },
+    {
+      id: "white-sturgeon",
+      category: "black",
+      name: { ru: "Белый осётр", en: "White Sturgeon" },
+      origin: { ru: "ферма, Калифорния, США", en: "farmed, California, USA" },
+      badge: { ru: "Из Калифорнии", en: "From California" },
+      description: {
+        ru: "Американская классика: зерно среднего и крупного размера, чистый ореховый вкус со сливочной ноткой. Выращивается на калифорнийских фермах — путь до Бостона короткий.",
+        en: "The American classic: medium to large grain and a clean, nutty flavour with a creamy note. Raised on Californian farms — a short trip to Boston.",
+      },
+      variants: [
+        { grams: 125,  price: 200, inStock: true },
+        { grams: 250,  price: 380, inStock: true },
+        { grams: 500,  price: 700, inStock: true },
+        { grams: 1000, price: 0,   inStock: false, wholesale: true },
+      ],
+    },
+    {
       id: "siberian",
+      category: "black",
       name: { ru: "Сибирский осётр", en: "Siberian Sturgeon" },
       origin: { ru: "импорт", en: "overseas" },
       badge: { ru: "Классика премиум", en: "Classic premium" },
@@ -85,6 +122,7 @@ const CONFIG = {
     },
     {
       id: "beluga-hybrid",
+      category: "black",
       name: { ru: "Белуга-гибрид", en: "Beluga Hybrid" },
       origin: { ru: "ферма, Флорида, США", en: "farmed, Florida, USA" },
       badge: { ru: "Крупное зерно", en: "Large grain" },
@@ -101,16 +139,17 @@ const CONFIG = {
     },
     {
       id: "velvet",
+      category: "black",
       name: { ru: "Бархатная", en: "Velvet" },
       origin: { ru: "импорт", en: "overseas" },
       badge: { ru: "Редкая позиция", en: "Rare" },
       description: {
-        ru: "Редкая позиция нашего прайса: бархатистая текстура, плотное зерно и сливочный, долгий финиш. Берут, когда повод особенный.",
-        en: "The rarest line on our list: a velvety texture, dense grain and a long, creamy finish. For occasions that deserve it.",
+        ru: "Самая редкая позиция нашего прайса: крупное зерно, бархатистая текстура и сливочный, долгий финиш. Берут, когда повод особенный.",
+        en: "The rarest line on our list: large eggs, a velvety texture and a long, creamy finish. For occasions that deserve it.",
       },
       variants: [
-        { grams: 125,  price: 350,  inStock: true },
-        { grams: 250,  price: 600,  inStock: true },
+        { grams: 125,  price: 300,  inStock: true },
+        { grams: 250,  price: 550,  inStock: true },
         { grams: 500,  price: 1000, inStock: true },
         { grams: 1000, price: 0,    inStock: false, wholesale: true },
       ],
