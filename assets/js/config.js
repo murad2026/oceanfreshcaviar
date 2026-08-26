@@ -299,8 +299,8 @@ const CONFIG = {
       en: "Within three days, any day of the week",
     },
     lead: {
-      ru: "Отправка в термоупаковке, стоимость считаем по адресу",
-      en: "Shipped insulated, cost calculated for your address",
+      ru: "Отправка по стране в термоупаковке, 5–10 дней в зависимости от выходных и праздников; стоимость считаем по адресу",
+      en: "Nationwide shipping, insulated, 5–10 days depending on weekends and holidays; cost calculated for your address",
     },
   },
 };
