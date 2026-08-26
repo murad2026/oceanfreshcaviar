@@ -111,7 +111,7 @@
        образец. Битая картинка убирает себя сама, образец остаётся под ней. */
     const photo = `<img class="avatar-img" src="assets/img/${p.id}.jpg" alt="${loc(
       p.name
-    )}" loading="lazy" onerror="this.remove()">`;
+    )}" loading="lazy" onload="this.classList.add('is-on')" onerror="this.remove()">`;
     const R = 50;                       // радиус круга в единицах viewBox
     const r = Math.max(3, g.mm * 2.1);  // радиус икринки: 3 мм -> ~6.3
     const step = r * 1.86;
