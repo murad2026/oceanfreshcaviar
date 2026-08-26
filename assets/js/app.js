@@ -107,6 +107,11 @@
   function grainAvatar(p) {
     const g = p.grain;
     if (!g) return "";
+    /* Если в assets/img/ лежит <id>.jpg — показываем фото, иначе рисованный
+       образец. Битая картинка убирает себя сама, образец остаётся под ней. */
+    const photo = `<img class="avatar-img" src="assets/img/${p.id}.jpg" alt="${loc(
+      p.name
+    )}" loading="lazy" onerror="this.remove()">`;
     const R = 50;                       // радиус круга в единицах viewBox
     const r = Math.max(3, g.mm * 2.1);  // радиус икринки: 3 мм -> ~6.3
     const step = r * 1.86;
@@ -122,7 +127,7 @@
         eggs += `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${rr.toFixed(1)}" fill="url(#g-${p.id})"/>`;
       }
     }
-    return `<svg class="avatar" viewBox="-50 -50 100 100" role="img" aria-label="${loc(p.name)}">
+    return `<span class="avatar-wrap">${photo}<svg class="avatar" viewBox="-50 -50 100 100" role="img" aria-label="${loc(p.name)}">
         <defs>
           <radialGradient id="g-${p.id}" cx="34%" cy="30%" r="72%">
             <stop offset="0%" stop-color="${g.light}"/>
@@ -136,7 +141,7 @@
           ${eggs}
         </g>
         <circle cx="0" cy="0" r="49" fill="none" stroke="rgba(217,164,65,.35)"/>
-      </svg>`;
+      </svg></span>`;
   }
 
   function cardHtml(p) {
