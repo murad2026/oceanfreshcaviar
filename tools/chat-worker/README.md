@@ -14,7 +14,37 @@ push, и в разговор можно вмешаться руками в лю�
 2. **Ключ Anthropic** — console.anthropic.com → API Keys. Новый, отдельный.
 3. **Cloudflare** — бесплатного тарифа Workers достаточно.
 
-## Развернуть
+## Развернуть через браузер (проще)
+
+Ничего ставить не нужно, всё делается на сайте Cloudflare.
+
+1. **dash.cloudflare.com** → слева **Workers & Pages** → **Create** →
+   **Start with Hello World!** → имя `oceanfresh-chat` → **Deploy**.
+2. На странице воркера → **Edit code**. Стереть содержимое редактора и
+   вставить целиком файл `tools/chat-worker/worker.bundled.js`
+   (открыть его на GitHub, кнопка **Copy raw file**). → **Deploy**.
+3. Вкладка **Settings** → **Variables and Secrets** → **Add** →
+   тип **Secret**, по одной штуке:
+   - `ANTHROPIC_API_KEY` — новый ключ с console.anthropic.com
+   - `CRISP_API_ID` — identifier плагина Crisp
+   - `CRISP_API_KEY` — key плагина Crisp
+   - `CRISP_WEBSITE_ID` — `fed75a74-4131-40a6-b96a-36931d910aa5`
+   - `OWNER_PHONE`, `SMS_URL`, `SMS_KEY` — если нужны SMS о заказах
+   → **Deploy** ещё раз, чтобы секреты подхватились.
+4. Скопировать адрес воркера — он вида
+   `https://oceanfresh-chat.ВАШ-ПОДДОМЕН.workers.dev`. Проверить:
+   открыть его с `/health` в конце — должно ответить `ok` и дату каталога.
+5. **app.crisp.chat** → workspace Caviar → **Settings → Webhooks** →
+   **Add webhook**: адрес — воркер плюс `/crisp/webhook`, событие
+   **message:send** → сохранить.
+
+Готово: напишите себе в чат на сайте, бот ответит.
+
+После правки цен: `node tools/build-chat-context.js`,
+`node tools/build-worker-bundle.js`, снова вставить файл в редактор
+Cloudflare и нажать Deploy.
+
+## Развернуть из терминала (если есть Node.js)
 
 ```bash
 npm install -g wrangler
@@ -47,7 +77,8 @@ wrangler deploy
 После любой правки цен, наличия, доставки или сезона:
 
 ```bash
-node tools/build-chat-context.js   # пересобрать каталог для бота
+node tools/build-chat-context.js    # пересобрать каталог для бота
+node tools/build-worker-bundle.js   # и файл для вставки в браузере
 cd tools/chat-worker && wrangler deploy
 ```
 
