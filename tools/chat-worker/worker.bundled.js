@@ -767,13 +767,75 @@ async function handleMessage(env, sessionId, text) {
 }
 
 /* ---------- точка входа ---------- */
+const json = (obj, status = 200) =>
+  new Response(JSON.stringify(obj, null, 2), {
+    status,
+    headers: { "content-type": "application/json; charset=utf-8" },
+  });
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+
+    /* Что настроено, а что нет. Значения секретов не раскрываются. */
     if (request.method === "GET" && url.pathname === "/health")
-      return new Response("ok " + catalog.updated, { status: 200 });
+      return json({
+        ok: true,
+        catalog_updated: catalog.updated,
+        products: catalog.products.length,
+        model: env.MODEL || "claude-opus-5",
+        secrets: {
+          ANTHROPIC_API_KEY: !!env.ANTHROPIC_API_KEY,
+          CRISP_API_ID: !!env.CRISP_API_ID,
+          CRISP_API_KEY: !!env.CRISP_API_KEY,
+          CRISP_WEBSITE_ID: !!env.CRISP_WEBSITE_ID,
+          OWNER_PHONE: !!env.OWNER_PHONE,
+        },
+      });
+
+    /* Проверка ключа Claude и доступа к Crisp.
+       Открывается только с ?key=<CRISP_WEBSITE_ID>. */
+    if (request.method === "GET" && url.pathname === "/selftest") {
+      if (!env.CRISP_WEBSITE_ID || url.searchParams.get("key") !== env.CRISP_WEBSITE_ID)
+        return json({ error: "add ?key=<CRISP_WEBSITE_ID>" }, 403);
+
+      const out = { claude: null, crisp: null };
+      try {
+        const r = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: {
+            "x-api-key": env.ANTHROPIC_API_KEY || "",
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            model: env.MODEL || "claude-opus-5",
+            max_tokens: 32,
+            messages: [{ role: "user", content: "Ответь одним словом: работает" }],
+          }),
+        });
+        const body = await r.text();
+        out.claude = r.ok
+          ? { ok: true, reply: (JSON.parse(body).content || [])[0]?.text || "" }
+          : { ok: false, status: r.status, error: body.slice(0, 300) };
+      } catch (e) {
+        out.claude = { ok: false, error: String(e).slice(0, 200) };
+      }
+
+      try {
+        const r = await fetch(`${CRISP_API}/${env.CRISP_WEBSITE_ID}/conversations/1`, {
+          headers: { Authorization: crispAuth(env), "X-Crisp-Tier": "plugin" },
+        });
+        out.crisp = r.ok
+          ? { ok: true, conversations: ((await r.json()).data || []).length }
+          : { ok: false, status: r.status, error: (await r.text()).slice(0, 300) };
+      } catch (e) {
+        out.crisp = { ok: false, error: String(e).slice(0, 200) };
+      }
+      return json(out);
+    }
     if (request.method !== "POST" || url.pathname !== "/crisp/webhook")
-      return new Response("not found", { status: 404 });
+      return json({ error: "not found", try: ["/health", "/selftest?key=…", "POST /crisp/webhook"] }, 404);
 
     let data;
     try {
