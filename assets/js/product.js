@@ -173,6 +173,7 @@
     document.title = loc(P.name) + " — Ocean Fresh Caviar";
     document.querySelectorAll("[data-i18n]").forEach((el) => (el.innerHTML = t(el.dataset.i18n)));
     renderProduct();
+    renderShipping("shippingBox", t, loc);
     renderFlow();
     renderReviews();
     renderContacts();

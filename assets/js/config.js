@@ -297,7 +297,46 @@ const CONFIG = {
     harvestEnds: "2026-10-20",
   },
 
-  /* ---------- 8. ДОСТАВКА ---------- */
+  /* ---------- 8. СПОСОБЫ ДОСТАВКИ ----------
+     Показываются карточками в блоке заказа и на странице каждой позиции.
+     show: false убирает вариант с сайта. */
+  shipping: [
+    {
+      id: "pickup",
+      show: true,
+      price: { ru: "Бесплатно", en: "Free" },
+      time: { ru: "В день заказа", en: "Same day" },
+      title: { ru: "Самовывоз", en: "Pickup" },
+      text: {
+        ru: "Заберёте сами в удобное время. Адрес и часы называем, когда подтверждаем заказ.",  // TODO: район и часы
+        en: "Pick it up yourself at a time that suits you. We give the address and hours when we confirm the order.",
+      },
+    },
+    {
+      id: "courier",
+      show: true,
+      price: { ru: "Бесплатно", en: "Free" },
+      time: { ru: "До трёх дней", en: "Within three days" },
+      title: { ru: "Курьер по I-495", en: "Courier inside I-495" },
+      text: {
+        ru: "Внутри кольца I-495 везём сами, в термоупаковке, и передаём из рук в руки. В любой день недели.",
+        en: "Inside the I-495 belt we drive it ourselves, insulated, and hand it over in person. Any day of the week.",
+      },
+    },
+    {
+      id: "ship",
+      show: true,
+      price: { ru: "По адресу", en: "Quoted" },
+      time: { ru: "1–2 дня", en: "1–2 days" },
+      title: { ru: "В другие штаты", en: "Other states" },
+      text: {
+        ru: "Отправляем экспресс-доставкой в термоупаковке с хладоэлементами, по понедельникам–средам, чтобы посылка не лежала в выходные. Стоимость считаем по адресу и весу.",
+        en: "Express shipping in an insulated box with cold packs, sent Monday to Wednesday so the parcel never sits out a weekend. Cost calculated from address and weight.",
+      },
+    },
+  ],
+
+  /* ---------- 9. ДОСТАВКА: СПРАВКА В РАЗДЕЛЕ ---------- */
   delivery: {
     zone: {
       ru: "Внутри кольца I-495 — бесплатно, курьером из рук в руки",
@@ -308,8 +347,8 @@ const CONFIG = {
       en: "Within three days, any day of the week",
     },
     lead: {
-      ru: "Отправка по стране в термоупаковке, 5–10 дней в зависимости от выходных и праздников; стоимость считаем по адресу",
-      en: "Nationwide shipping, insulated, 5–10 days depending on weekends and holidays; cost calculated for your address",
+      ru: "Экспресс-отправка в термоупаковке, 1–2 дня; отправляем по понедельникам–средам",
+      en: "Express shipping, insulated, 1–2 days; sent Monday to Wednesday",
     },
   },
 };

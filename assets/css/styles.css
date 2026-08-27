@@ -286,6 +286,29 @@ p{margin:0 0 1em}
 .cold-facts dt{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 .cold-facts dd{margin:0;font-size:.95rem;color:#cfd8e3}
 
+/* ---------- способы доставки ---------- */
+.ship{margin:0 0 2.2rem}
+.ship h2{font-size:clamp(1.3rem,2.2vw,1.6rem);margin-bottom:1rem}
+.ship-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr))}
+.ship-card{
+  border:1px solid var(--line-soft);border-radius:4px;padding:20px 20px 18px;
+  background:var(--ink-2);transition:border-color .25s
+}
+.ship-card:hover{border-color:var(--line)}
+.ship-ico{width:26px;height:26px;color:var(--gold);margin-bottom:12px;display:block}
+.ship-card h3{font-size:1.12rem;margin-bottom:.3em}
+.ship-meta{
+  display:flex;gap:8px;align-items:baseline;margin:0 0 .7em;
+  font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)
+}
+.ship-meta i{color:var(--muted);font-style:normal}
+.ship-text{color:var(--muted);font-size:.9rem;margin:0;line-height:1.5}
+.ship-note{
+  color:var(--muted);font-size:.84rem;margin:14px 0 0;
+  border-left:2px solid var(--gold);padding-left:14px;max-width:74ch
+}
+.product-page .ship{margin-top:clamp(46px,7vw,86px)}
+
 /* ---------- order form ---------- */
 .order-wrap{max-width:860px}
 .order-form{margin-top:1rem}

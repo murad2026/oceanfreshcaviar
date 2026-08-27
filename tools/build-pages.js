@@ -66,6 +66,7 @@ function page(p) {
   <div class="wrap">
     <a class="back" href="../#product">← <span data-i18n="page.back"></span></a>
     <div id="productPage"></div>
+    <div id="shippingBox"></div>
     <div id="deliveryFlow"></div>
     <div id="reviews"></div>
   </div>
@@ -88,6 +89,7 @@ function page(p) {
 <script>window.PRODUCT_ID = ${JSON.stringify(p.id)};</script>
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/i18n.js"></script>
+<script src="../assets/js/shipping.js"></script>
 <script src="../assets/js/product.js"></script>
 </body>
 </html>`;

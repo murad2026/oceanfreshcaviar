@@ -23,6 +23,7 @@
 | Цены, фасовки, наличие | `products[].variants` |
 | Название и описание икры | `products[].name`, `subtitle`, `description` |
 | Зона, дни, срок доставки | `delivery` |
+| Способы получения (самовывоз, курьер, отправка) | `shipping` |
 | Дата окончания сбора, обратный отсчёт | `season` |
 | Оплата картой (Stripe Payment Links) | `payments` |
 | Остатки по фасовкам | `stock` внутри `variants` |

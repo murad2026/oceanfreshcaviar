@@ -129,6 +129,7 @@
     <div class="wrap order-wrap">
       <h2 data-i18n="order.title"></h2>
       <p class="section-lead" data-i18n="order.lead"></p>
+      <div id="shippingBox"></div>
 
       <form id="orderForm" class="order-form" novalidate>
         <div class="cart">
@@ -153,6 +154,9 @@
               <option value="SMS">SMS</option>
               <option value="Instagram">Instagram</option>
             </select>
+          </label>
+          <label class="field"><span data-i18n="order.how"></span>
+            <select name="shipping" id="shippingSelect"></select>
           </label>
           <label class="field"><span data-i18n="order.date"></span><input type="date" name="date"></label>
           <label class="field field-wide"><span data-i18n="order.address"></span><input type="text" name="address"></label>
@@ -206,6 +210,7 @@
 
 <script src="assets/js/config.js"></script>
 <script src="assets/js/i18n.js"></script>
+<script src="assets/js/shipping.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
 </html>

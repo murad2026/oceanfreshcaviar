@@ -21,6 +21,16 @@
     document.getElementById("factZone").textContent = loc(CONFIG.delivery.zone);
     document.getElementById("factDays").textContent = loc(CONFIG.delivery.days);
     document.getElementById("factLead").textContent = loc(CONFIG.delivery.lead);
+    renderShipping("shippingBox", t, loc);
+    const sel = document.getElementById("shippingSelect");
+    if (sel) {
+      const cur = sel.value;
+      sel.innerHTML = (CONFIG.shipping || [])
+        .filter((x) => x.show !== false)
+        .map((x) => `<option value="${x.id}">${loc(x.title)}</option>`)
+        .join("");
+      if (cur) sel.value = cur;
+    }
     renderSeason();
     renderProducts();
     renderCompare();
@@ -368,6 +378,10 @@
     lines.push(`${t("order.name")}: ${d.get("name")}`);
     lines.push(`${t("order.phone")}: ${d.get("phone")}`);
     lines.push(`${t("order.contact")}: ${d.get("channel")}`);
+    if (d.get("shipping")) {
+      const sh = (CONFIG.shipping || []).find((x) => x.id === d.get("shipping"));
+      if (sh) lines.push(`${t("order.how")}: ${loc(sh.title)}`);
+    }
     if (d.get("date")) lines.push(`${t("order.date")}: ${d.get("date")}`);
     if (d.get("address")) lines.push(`${t("order.address")}: ${d.get("address")}`);
     if (d.get("comment")) lines.push(`${t("order.comment")}: ${d.get("comment")}`);
