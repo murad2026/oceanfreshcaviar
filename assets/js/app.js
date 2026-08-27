@@ -403,10 +403,17 @@
   function sendLink(text) {
     const c = CONFIG.contacts;
     const enc = encodeURIComponent(text);
-    if (CONFIG.primaryChannel === "telegram" && c.telegram) return `https://t.me/${c.telegram}?text=${enc}`;
-    if (CONFIG.primaryChannel === "email" && c.email)
-      return `mailto:${c.email}?subject=${encodeURIComponent("Order — Ocean Fresh Caviar")}&body=${enc}`;
-    return `https://wa.me/${c.phone}?text=${enc}`;
+    const ch = CONFIG.primaryChannel;
+    const mail = () =>
+      `mailto:${c.email}?subject=${encodeURIComponent("Order — Ocean Fresh Caviar")}&body=${enc}`;
+    if (ch === "telegram" && c.telegram) return `https://t.me/${c.telegram}?text=${enc}`;
+    if (ch === "email" && c.email) return mail();
+    if (ch === "whatsapp" && c.phone) return `https://wa.me/${c.phone}?text=${enc}`;
+    /* sms: на телефоне открывает сообщение, на компьютере не работает —
+       там уходим в почту, если она есть. */
+    const isPhone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (!isPhone && c.email) return mail();
+    return `sms:+${c.phone}?&body=${enc}`;
   }
 
   document.getElementById("orderForm").addEventListener("submit", (e) => {
@@ -431,7 +438,7 @@
   function renderContacts() {
     const c = CONFIG.contacts;
     const links = [];
-    if (c.phone) links.push(`<a href="https://wa.me/${c.phone}">WhatsApp ${c.phoneDisplay}</a>`);
+    if (c.phone && c.whatsapp) links.push(`<a href="https://wa.me/${c.phone}">WhatsApp ${c.phoneDisplay}</a>`);
     if (c.phone) links.push(`<a href="sms:+${c.phone}">${t("contact.sms")} ${c.phoneDisplay}</a>`);
     if (c.telegram) links.push(`<a href="https://t.me/${c.telegram}">Telegram @${c.telegram}</a>`);
     if (c.instagram) links.push(`<a href="https://instagram.com/${c.instagram}">Instagram @${c.instagram}</a>`);

@@ -381,6 +381,10 @@ textarea{resize:vertical}
 }
 .pdp-tin img.is-on{opacity:1}
 .pdp-grain{margin:18px auto 0;display:block;flex:0 0 120px;width:120px;height:120px}
+.pdp-grain-cap{
+  text-align:center;color:var(--muted);font-size:.74rem;margin:8px 0 0;
+  letter-spacing:.1em;text-transform:uppercase
+}
 .pdp-body h1{font-size:clamp(2rem,4vw,3rem);margin:.15em 0 .1em}
 .pdp-desc{color:#c3cedb;font-size:1.05rem;max-width:64ch;margin:1em 0 1.6em}
 .pdp-facts{

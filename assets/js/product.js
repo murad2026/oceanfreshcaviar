@@ -95,6 +95,7 @@
                  onerror="this.parentNode.remove()">
           </div>
           ${grainAvatar(P, "pdp-grain")}
+          <p class="pdp-grain-cap">${t("page.grainCap")}</p>
         </div>
         <div class="pdp-body">
           <span class="tag tag-pre">${loc(P.badge)}</span>
@@ -159,7 +160,7 @@
   /* ---------- контакты ---------- */
   function renderContacts() {
     const c = CONFIG.contacts, links = [];
-    if (c.phone) links.push(`<a href="https://wa.me/${c.phone}">WhatsApp ${c.phoneDisplay}</a>`);
+    if (c.phone && c.whatsapp) links.push(`<a href="https://wa.me/${c.phone}">WhatsApp ${c.phoneDisplay}</a>`);
     if (c.phone) links.push(`<a href="sms:+${c.phone}">${t("contact.sms")} ${c.phoneDisplay}</a>`);
     if (c.telegram) links.push(`<a href="https://t.me/${c.telegram}">Telegram @${c.telegram}</a>`);
     if (c.instagram) links.push(`<a href="https://instagram.com/${c.instagram}">Instagram @${c.instagram}</a>`);
