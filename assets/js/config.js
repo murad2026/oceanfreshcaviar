@@ -273,7 +273,7 @@ const CONFIG = {
   /* ---------- 5. ЧАТ НА САЙТЕ ----------
      Идентификатор сайта в Crisp (Settings -> Website settings -> Setup).
      null — виджет не подключается. Отвечает бот из tools/chat-worker. */
-  chat: { crispWebsiteId: null },
+  chat: { crispWebsiteId: "fed75a74-4131-40a6-b96a-36931d910aa5" },
 
   /* ---------- 6. ОТЗЫВЫ ----------
      Появляются на странице позиции. product — id товара (без него отзыв
