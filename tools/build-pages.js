@@ -91,6 +91,7 @@ function page(p) {
 <script src="../assets/js/i18n.js"></script>
 <script src="../assets/js/shipping.js"></script>
 <script src="../assets/js/product.js"></script>
+<script src="../assets/js/chat.js"></script>
 </body>
 </html>`;
 }

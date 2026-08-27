@@ -1,0 +1,8 @@
+name = "oceanfresh-chat"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Секреты задаются командой wrangler secret put ИМЯ — в этот файл их не пишем.
+# Необязательные значения можно держать здесь:
+# [vars]
+# MODEL = "claude-opus-5"
