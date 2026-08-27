@@ -102,6 +102,15 @@
   /* ---------- рендер товара ---------- */
   const CATEGORIES = ["black", "red"];
 
+  /* Банка: assets/img/tins/<id>.jpg. Нет файла — блок убирает себя сам. */
+  function tinPhoto(p) {
+    return `<a class="tin-photo" href="caviar/${p.id}.html">
+        <img src="assets/img/tins/${p.id}.jpg" alt="${loc(p.name)}" loading="lazy"
+             onload="this.parentNode.classList.add('is-on')"
+             onerror="this.parentNode.remove()">
+      </a>`;
+  }
+
   /* Круглый образец икры: икринки настоящего размера и цвета.
      Раскладка детерминированная — картинка не «прыгает» при перерисовке. */
   function grainAvatar(p) {
@@ -187,17 +196,19 @@
       ? `<p class="card-grain">${t("product.grain")} ${String(p.grain.mm).replace(".", lang === "ru" ? "," : ".")} ${t("product.mm")}</p>`
       : "";
     return `<article class="card">
+        ${tinPhoto(p)}
         <div class="card-top">
           ${grainAvatar(p)}
           <div class="card-id">
             <span class="tag tag-pre">${loc(p.badge)}</span>
-            <h3>${loc(p.name)}</h3>
+            <h3><a href="caviar/${p.id}.html">${loc(p.name)}</a></h3>
             ${origin}
             ${grain}
           </div>
         </div>
         <p class="card-desc">${loc(p.description)}</p>
         <ul class="sizes">${rows}</ul>
+        <a class="card-more" href="caviar/${p.id}.html">${t("product.more")} →</a>
       </article>`;
   }
 
@@ -416,8 +427,19 @@
     document.getElementById("altLinks").innerHTML = links.slice(0, 3).join(" ");
   }
 
+  /* ---------- заказ по ссылке ?add=id-граммы ---------- */
+  function addFromUrl() {
+    const key0 = new URLSearchParams(location.search).get("add");
+    if (!key0) return;
+    for (const p of CONFIG.products)
+      for (const v of p.variants) if (key(p, v) === key0) addToCart(p, v);
+    history.replaceState(null, "", location.pathname + location.hash);
+    document.getElementById("order").scrollIntoView({ behavior: "smooth" });
+  }
+
   /* ---------- старт ---------- */
   document.getElementById("year").textContent = new Date().getFullYear();
   document.getElementById("placeholderNotice").hidden = !CONFIG.pricesArePlaceholder;
   applyLang();
+  addFromUrl();
 })();

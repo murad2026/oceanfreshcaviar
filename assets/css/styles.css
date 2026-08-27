@@ -131,6 +131,20 @@ p{margin:0 0 1em}
 .size-left.is-out{color:#e08b73}
 
 /* ---------- product ---------- */
+.tin-photo{
+  display:none;margin:-6px 0 18px;border-radius:3px;overflow:hidden;
+  background:#0a0e15;aspect-ratio:1/1
+}
+.tin-photo.is-on{display:block}
+.tin-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.tin-photo:hover img{transform:scale(1.03)}
+.card h3 a{text-decoration:none}
+.card h3 a:hover{color:var(--gold)}
+.card-more{
+  display:inline-block;margin-top:14px;color:var(--gold);font-size:.85rem;
+  text-decoration:none;letter-spacing:.02em
+}
+.card-more:hover{text-decoration:underline}
 .cat + .cat{margin-top:clamp(38px,5vw,60px)}
 .cat-head{
   display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;
@@ -321,6 +335,80 @@ textarea{resize:vertical}
 .faq summary::after{content:"+";color:var(--gold);font-size:1.3rem;line-height:1}
 .faq details[open] summary::after{content:"–"}
 .faq p{color:var(--muted);margin:12px 0 0;max-width:70ch}
+
+/* ---------- страница позиции ---------- */
+.product-page main{padding:clamp(28px,4vw,48px) 0 clamp(40px,6vw,72px)}
+.back{
+  display:inline-block;color:var(--muted);text-decoration:none;font-size:.88rem;
+  margin-bottom:22px
+}
+.back:hover{color:var(--gold)}
+.pdp{display:grid;gap:clamp(26px,4vw,52px);grid-template-columns:minmax(0,420px) 1fr;align-items:start}
+.pdp-visual{position:sticky;top:92px}
+.pdp-tin{
+  display:none;border-radius:4px;overflow:hidden;background:#080c12;
+  border:1px solid var(--line-soft);aspect-ratio:1/1
+}
+.pdp-tin.is-on{display:block}
+.pdp-tin img{width:100%;height:100%;object-fit:cover;display:block}
+.pdp-grain{margin:18px auto 0;display:block;flex:0 0 120px;width:120px;height:120px}
+.pdp-body h1{font-size:clamp(2rem,4vw,3rem);margin:.15em 0 .1em}
+.pdp-desc{color:#c3cedb;font-size:1.05rem;max-width:64ch;margin:1em 0 1.6em}
+.pdp-facts{
+  margin:0 0 2rem;padding:20px 22px;border:1px solid var(--line);border-radius:4px;
+  background:var(--ink-2)
+}
+.pdp-facts>div{display:flex;gap:18px;padding:9px 0;border-top:1px solid var(--line-soft)}
+.pdp-facts>div:first-child{border-top:0;padding-top:0}
+.pdp-facts dt{
+  flex:0 0 130px;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gold);padding-top:3px
+}
+.pdp-facts dd{margin:0;color:#cfd8e3;font-size:.96rem}
+.pdp-h{font-size:1.3rem;margin:0 0 .5em}
+.pdp-note{color:var(--muted);font-size:.85rem;margin-top:14px}
+.pdp .size-btn{
+  display:flex;align-items:center;justify-content:center;text-decoration:none;
+  flex:0 0 40px;height:40px
+}
+
+/* ---------- путь заказа ---------- */
+.flow{margin-top:clamp(46px,7vw,86px)}
+.flow h2{font-size:clamp(1.7rem,3vw,2.3rem)}
+.flow-list{
+  list-style:none;margin:0;padding:0;display:grid;gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))
+}
+.flow-list li{
+  border-top:1px solid var(--line);padding-top:18px;
+  opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s
+}
+.flow-list li.in{opacity:1;transform:none}
+.flow-n{
+  display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:50%;border:1px solid var(--gold);color:var(--gold);
+  font-family:var(--serif);margin-bottom:12px
+}
+.flow-list h3{font-size:1.1rem;margin-bottom:.35em}
+.flow-list p{color:var(--muted);font-size:.9rem;margin:0}
+
+/* ---------- отзывы ---------- */
+.reviews{margin-top:clamp(46px,7vw,86px)}
+.reviews h2{font-size:clamp(1.7rem,3vw,2.3rem)}
+.review-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
+.review{
+  margin:0;background:var(--ink-2);border:1px solid var(--line-soft);border-radius:4px;
+  overflow:hidden;display:flex;flex-direction:column
+}
+.review img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.review figcaption{padding:18px 20px}
+.review p{color:#c3cedb;font-size:.95rem;margin:0 0 .8em}
+.review span{color:var(--muted);font-size:.82rem}
+
+@media (max-width:820px){
+  .pdp{grid-template-columns:1fr}
+  .pdp-visual{position:static;max-width:420px}
+}
 
 /* ---------- footer ---------- */
 .site-footer{background:var(--ink-2);border-top:1px solid var(--line-soft);padding:52px 0 26px}
