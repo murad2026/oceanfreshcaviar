@@ -91,7 +91,7 @@
         <div class="pdp-visual">
           <div class="pdp-tin">
             <img src="../assets/img/tins/${P.id}.jpg" alt="${loc(P.name)}"
-                 onload="this.parentNode.classList.add('is-on')"
+                 onload="this.classList.add('is-on')"
                  onerror="this.parentNode.remove()">
           </div>
           ${grainAvatar(P, "pdp-grain")}

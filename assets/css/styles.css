@@ -132,11 +132,14 @@ p{margin:0 0 1em}
 
 /* ---------- product ---------- */
 .tin-photo{
-  display:none;margin:-6px 0 18px;border-radius:3px;overflow:hidden;
+  display:block;margin:-6px 0 18px;border-radius:3px;overflow:hidden;
   background:#0a0e15;aspect-ratio:1/1
 }
-.tin-photo.is-on{display:block}
-.tin-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.tin-photo img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  opacity:0;transition:opacity .3s,transform .4s
+}
+.tin-photo img.is-on{opacity:1}
 .tin-photo:hover img{transform:scale(1.03)}
 .card h3 a{text-decoration:none}
 .card h3 a:hover{color:var(--gold)}
@@ -346,11 +349,14 @@ textarea{resize:vertical}
 .pdp{display:grid;gap:clamp(26px,4vw,52px);grid-template-columns:minmax(0,420px) 1fr;align-items:start}
 .pdp-visual{position:sticky;top:92px}
 .pdp-tin{
-  display:none;border-radius:4px;overflow:hidden;background:#080c12;
+  display:block;border-radius:4px;overflow:hidden;background:#080c12;
   border:1px solid var(--line-soft);aspect-ratio:1/1
 }
-.pdp-tin.is-on{display:block}
-.pdp-tin img{width:100%;height:100%;object-fit:cover;display:block}
+.pdp-tin img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  opacity:0;transition:opacity .3s
+}
+.pdp-tin img.is-on{opacity:1}
 .pdp-grain{margin:18px auto 0;display:block;flex:0 0 120px;width:120px;height:120px}
 .pdp-body h1{font-size:clamp(2rem,4vw,3rem);margin:.15em 0 .1em}
 .pdp-desc{color:#c3cedb;font-size:1.05rem;max-width:64ch;margin:1em 0 1.6em}

@@ -105,8 +105,8 @@
   /* Банка: assets/img/tins/<id>.jpg. Нет файла — блок убирает себя сам. */
   function tinPhoto(p) {
     return `<a class="tin-photo" href="caviar/${p.id}.html">
-        <img src="assets/img/tins/${p.id}.jpg" alt="${loc(p.name)}" loading="lazy"
-             onload="this.parentNode.classList.add('is-on')"
+        <img src="assets/img/tins/${p.id}.jpg" alt="${loc(p.name)}"
+             onload="this.classList.add('is-on')"
              onerror="this.parentNode.remove()">
       </a>`;
   }
