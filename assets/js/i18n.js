@@ -121,7 +121,7 @@ const I18N = {
     "order.copied": "Скопировано",
     "order.required": "Заполните имя и телефон",
     "order.privacy": "Мы используем ваши данные только чтобы связаться по этому заказу.",
-    "order.alt": "Или свяжитесь напрямую:",
+    "order.alt": "Или напишите напрямую:",
 
     "faq.title": "Частые вопросы",
     "faq.q0": "Почему количество ограничено?",
@@ -137,7 +137,8 @@ const I18N = {
     "faq.q5": "Есть ли доставка в тот же день?",
     "faq.a5": "Иногда да — зависит от наличия и маршрута курьера. Напишите нам, подскажем по вашей дате.",
 
-    "contact.call": "Позвонить",
+    "contact.sms": "SMS",
+    "contact.textOnly": "Только сообщения — отвечаем сразу",
     "footer.tagline": "Икра с доставкой курьером по Бостону. С 1997 года.",
     "footer.rights": "Все права защищены.",
   },
@@ -263,7 +264,7 @@ const I18N = {
     "order.copied": "Copied",
     "order.required": "Please add your name and phone",
     "order.privacy": "We use your details only to contact you about this order.",
-    "order.alt": "Or reach us directly:",
+    "order.alt": "Or message us directly:",
 
     "faq.title": "Frequently asked",
     "faq.q0": "Why are quantities limited?",
@@ -279,7 +280,8 @@ const I18N = {
     "faq.q5": "Is same-day delivery possible?",
     "faq.a5": "Sometimes — it depends on stock and the courier's route. Message us and we'll check your date.",
 
-    "contact.call": "Call",
+    "contact.sms": "Text",
+    "contact.textOnly": "Messages only — we reply right away",
     "footer.tagline": "Caviar delivered by courier across Boston. Since 1997.",
     "footer.rights": "All rights reserved.",
   },

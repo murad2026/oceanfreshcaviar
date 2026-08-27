@@ -447,6 +447,7 @@ textarea{resize:vertical}
 .footer-contacts{display:flex;flex-direction:column;gap:8px;font-size:.95rem}
 .footer-contacts a{color:var(--gold);text-decoration:none}
 .footer-contacts a:hover{text-decoration:underline}
+.text-only{color:var(--gold);font-size:.85rem}
 .footer-bottom{
   display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
   margin-top:38px;padding-top:20px;border-top:1px solid var(--line-soft);

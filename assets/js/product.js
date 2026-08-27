@@ -160,12 +160,14 @@
   function renderContacts() {
     const c = CONFIG.contacts, links = [];
     if (c.phone) links.push(`<a href="https://wa.me/${c.phone}">WhatsApp ${c.phoneDisplay}</a>`);
-    if (c.phone) links.push(`<a href="tel:+${c.phone}">${t("contact.call")} ${c.phoneDisplay}</a>`);
+    if (c.phone) links.push(`<a href="sms:+${c.phone}">${t("contact.sms")} ${c.phoneDisplay}</a>`);
     if (c.telegram) links.push(`<a href="https://t.me/${c.telegram}">Telegram @${c.telegram}</a>`);
     if (c.instagram) links.push(`<a href="https://instagram.com/${c.instagram}">Instagram @${c.instagram}</a>`);
     if (c.email) links.push(`<a href="mailto:${c.email}">${c.email}</a>`);
     document.getElementById("footerContacts").innerHTML =
-      links.join("") + `<span style="color:var(--muted)">${c.city}</span>`;
+      links.join("") +
+      `<span class="text-only">${t("contact.textOnly")}</span>` +
+      `<span style="color:var(--muted)">${c.city}</span>`;
   }
 
   function applyLang() {
