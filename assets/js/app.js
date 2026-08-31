@@ -12,6 +12,9 @@
 
   function applyLang() {
     document.documentElement.lang = lang;
+    document.title = t("meta.title");
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", t("meta.desc"));
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       el.innerHTML = t(el.dataset.i18n);
     });

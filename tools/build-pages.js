@@ -16,6 +16,47 @@ const CONFIG = vm.runInContext(
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 
+/* Product-разметка для поиска: собирается из тех же variants, что и цены на странице.
+   Наличие берётся из inStock — если правишь склад в config.js, разметка едет следом. */
+function productLd(p) {
+  const site = "https://www.oceanfreshcaviar.com";
+  const sellable = p.variants.filter((v) => v.price > 0);
+  const prices = sellable.map((v) => v.price);
+  const offers = sellable.map((v) => ({
+    "@type": "Offer",
+    name: v.unit || v.grams + " g",
+    price: v.price,
+    priceCurrency: "USD",
+    availability: v.inStock
+      ? "https://schema.org/InStock"
+      : "https://schema.org/PreOrder",
+    url: site + "/caviar/" + p.id + ".html",
+    itemCondition: "https://schema.org/NewCondition",
+  }));
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": site + "/caviar/" + p.id + ".html#product",
+    name: p.name.en + " Caviar",
+    description: p.description.en.replace(/\s+/g, " "),
+    image: site + "/assets/img/tins/" + p.id + ".jpg",
+    category: p.category === "black" ? "Sturgeon caviar" : "Salmon roe",
+    brand: { "@type": "Brand", name: "Ocean Fresh Caviar" },
+    seller: { "@id": site + "/#organization" },
+  };
+  if (prices.length) {
+    ld.offers = {
+      "@type": "AggregateOffer",
+      lowPrice: Math.min(...prices),
+      highPrice: Math.max(...prices),
+      priceCurrency: "USD",
+      offerCount: offers.length,
+      offers,
+    };
+  }
+  return '<script type="application/ld+json">\n' + JSON.stringify(ld, null, 2) + "\n</script>";
+}
+
 function page(p) {
   const name = p.name.en;
   const desc = p.description.en.replace(/\s+/g, " ").slice(0, 300);
@@ -37,6 +78,7 @@ function page(p) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/styles.css">
+${productLd(p)}
 </head>
 <body class="product-page">
 

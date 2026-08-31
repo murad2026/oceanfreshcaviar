@@ -2,6 +2,8 @@
 const I18N = {
   ru: {
     "lang.other": "EN",
+    "meta.title": "Ocean Fresh Caviar — чёрная и красная икра, Бостон",
+    "meta.desc": "Чёрная осетровая и красная лососёвая икра. Бесплатная курьерская доставка внутри I-495, экспресс-отправка по стране в термоупаковке.",
     "nav.about": "О нас",
     "nav.compare": "Сравнение",
     "compare.title": "Чем они отличаются",
@@ -146,6 +148,8 @@ const I18N = {
 
   en: {
     "lang.other": "RU",
+    "meta.title": "Ocean Fresh Caviar — Sturgeon & Salmon Caviar, Boston",
+    "meta.desc": "Black sturgeon and red salmon caviar in Boston. Free courier delivery inside I-495, express shipping nationwide in insulated packaging.",
     "nav.about": "About",
     "nav.compare": "Compare",
     "compare.title": "How they differ",
