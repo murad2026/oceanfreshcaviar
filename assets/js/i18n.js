@@ -3,6 +3,8 @@ const I18N = {
   ru: {
     "lang.other": "EN",
     "meta.title": "Ocean Fresh Caviar — чёрная и красная икра, Бостон",
+    "gallery.title": "Как это выглядит на самом деле",
+    "gallery.lead": "Наши собственные снимки — не студия и не сток. Как собираем, как везём, как приходит.",
     "meta.desc": "Чёрная осетровая и красная лососёвая икра. Бесплатная курьерская доставка внутри I-495, экспресс-отправка по стране в термоупаковке.",
     "nav.about": "О нас",
     "nav.compare": "Сравнение",
@@ -149,6 +151,8 @@ const I18N = {
   en: {
     "lang.other": "RU",
     "meta.title": "Ocean Fresh Caviar — Sturgeon & Salmon Caviar, Boston",
+    "gallery.title": "What it actually looks like",
+    "gallery.lead": "Our own photographs — no studio, no stock. How we pack it, how it travels, how it arrives.",
     "meta.desc": "Black sturgeon and red salmon caviar in Boston. Free courier delivery inside I-495, express shipping nationwide in insulated packaging.",
     "nav.about": "About",
     "nav.compare": "Compare",

@@ -485,3 +485,26 @@ textarea{resize:vertical}
   body{padding-bottom:74px}
   .form-actions .btn{width:100%}
 }
+
+/* ---------- галерея настоящих фото ---------- */
+.gallery-grid{
+  display:grid;gap:14px;
+  grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));
+  margin-top:26px;
+}
+.shot{
+  margin:0;background:var(--panel,#0f1c2b);
+  border:1px solid rgba(217,164,65,.16);border-radius:10px;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.shot img{
+  display:block;width:100%;aspect-ratio:4/5;object-fit:cover;
+  opacity:0;transition:opacity .45s ease;
+}
+.shot img.is-on{opacity:1}
+.shot figcaption{
+  padding:11px 13px;font-size:.87rem;line-height:1.45;color:var(--muted,#9fb0c0);
+}
+@media (prefers-reduced-motion:reduce){
+  .shot img{transition:none}
+}

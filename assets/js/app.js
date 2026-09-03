@@ -38,6 +38,7 @@
     renderProducts();
     renderCompare();
     renderCart();
+    renderGallery();
     renderContacts();
     localStorage.setItem("ofc-lang", lang);
   }
@@ -436,6 +437,31 @@
       window.prompt(t("order.copy"), buildMessage());
     }
   });
+
+  /* ---------- галерея настоящих фото ---------- */
+  function renderGallery() {
+    const shots = CONFIG.gallery || [];
+    const section = document.getElementById("gallery");
+    const grid = document.getElementById("galleryGrid");
+    if (!section || !grid) return;
+    section.hidden = !shots.length;
+    if (!shots.length) {
+      grid.innerHTML = "";
+      return;
+    }
+    /* onerror убирает кадр целиком: лучше пропуск, чем битая картинка */
+    grid.innerHTML = shots
+      .map((g) => {
+        const cap = loc(g.caption);
+        return `<figure class="shot">
+            <img src="${g.src}" alt="${loc(g.alt)}" loading="lazy"
+                 onload="this.classList.add('is-on')"
+                 onerror="this.closest('.shot').remove()">
+            ${cap ? `<figcaption>${cap}</figcaption>` : ""}
+          </figure>`;
+      })
+      .join("");
+  }
 
   /* ---------- контакты ---------- */
   function renderContacts() {
