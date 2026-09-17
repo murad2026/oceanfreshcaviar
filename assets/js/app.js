@@ -76,6 +76,7 @@
     }
     renderCart();
     renderProducts();
+    cartChanged();
   }
 
   function changeQty(k, delta) {
@@ -85,10 +86,29 @@
     if (item.qty <= 0) cart.delete(k);
     renderCart();
     renderProducts();
+    cartChanged();
   }
 
   const hasUnpriced = () => [...cart.values()].some((i) => !i.variant.price);
   const cartTotal = () => [...cart.values()].reduce((s, i) => s + i.variant.price * i.qty, 0);
+
+  /* Снимок корзины для маячка. Ничего о посетителе — только что выбрано. */
+  const cartSnapshot = () => ({
+    items: [...cart.values()].map((i) => ({
+      id: i.product.id,
+      name: i.product.name.en,
+      grams: i.variant.grams,
+      qty: i.qty,
+      price: i.variant.price,
+    })),
+    total: cartTotal(),
+  });
+
+  /* Корзину меняют только addToCart и changeQty, поэтому событие шлём
+     отсюда, а не из renderCart: его же дёргает смена языка. */
+  function cartChanged() {
+    document.dispatchEvent(new CustomEvent("ofc:cart", { detail: cartSnapshot() }));
+  }
 
   /* ---------- сезон ---------- */
   function renderSeason() {
@@ -423,6 +443,7 @@
   document.getElementById("orderForm").addEventListener("submit", (e) => {
     e.preventDefault();
     if (!validate()) return;
+    document.dispatchEvent(new CustomEvent("ofc:order", { detail: cartSnapshot() }));
     window.open(sendLink(buildMessage()), "_blank", "noopener");
   });
 

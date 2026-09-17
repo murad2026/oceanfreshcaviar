@@ -656,17 +656,107 @@ async function crispSend(env, sessionId, text) {
 }
 
 /* ---------- уведомление владельцу ---------- */
+/* Уведомление владельцу. Канал выбирается тем, какие секреты заданы —
+   можно включить сразу несколько. Ни один канал не обязателен: если не
+   настроено ничего, функция просто молчит.
+
+     Telegram : TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID
+     ntfy     : NTFY_TOPIC (и NTFY_SERVER, если не ntfy.sh)
+     SMS      : SMS_URL + SMS_KEY + OWNER_PHONE                       */
 async function notifyOwner(env, text) {
-  if (!env.SMS_URL || !env.SMS_KEY || !env.OWNER_PHONE) return;
-  try {
-    await fetch(env.SMS_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ api_key: env.SMS_KEY, phone: env.OWNER_PHONE, message: text.slice(0, 300) }),
-    });
-  } catch (e) {
-    console.log("sms failed", e);
+  const msg = text.slice(0, 900);
+  const jobs = [];
+
+  if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
+    jobs.push(
+      fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: env.TELEGRAM_CHAT_ID,
+          text: msg,
+          disable_web_page_preview: true,
+        }),
+      })
+    );
   }
+
+  if (env.NTFY_TOPIC) {
+    const server = env.NTFY_SERVER || "https://ntfy.sh";
+    jobs.push(
+      fetch(`${server}/${env.NTFY_TOPIC}`, {
+        method: "POST",
+        headers: { Title: "Ocean Fresh Caviar" },
+        body: msg,
+      })
+    );
+  }
+
+  if (env.SMS_URL && env.SMS_KEY && env.OWNER_PHONE) {
+    jobs.push(
+      fetch(env.SMS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ api_key: env.SMS_KEY, phone: env.OWNER_PHONE, message: msg.slice(0, 300) }),
+      })
+    );
+  }
+
+  if (!jobs.length) return;
+  const done = await Promise.allSettled(jobs);
+  done.forEach((r) => r.status === "rejected" && console.log("notify failed", r.reason));
+}
+
+/* ---------- маячок событий с сайта ---------- */
+
+const ALLOWED_ORIGINS = [
+  "https://www.oceanfreshcaviar.com",
+  "https://oceanfreshcaviar.com",
+];
+
+/* Грубый предохранитель от спама в твой телефон. Живёт в памяти изолята,
+   поэтому не абсолютный — но отсекает всё, кроме целенаправленной атаки. */
+const BUCKET = { minute: 0, count: 0 };
+const LIMIT_PER_MINUTE = 12;
+
+function rateLimited() {
+  const m = Math.floor(Date.now() / 60000);
+  if (m !== BUCKET.minute) {
+    BUCKET.minute = m;
+    BUCKET.count = 0;
+  }
+  return ++BUCKET.count > LIMIT_PER_MINUTE;
+}
+
+const corsHeaders = (origin) => ({
+  "Access-Control-Allow-Origin": origin,
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Max-Age": "86400",
+});
+
+const EVENT_LABEL = {
+  cart: "Набирают корзину",
+  order: "Нажали «Оформить заказ»",
+  abandon: "Ушли, не отправив заказ",
+};
+
+function eventText(body, cf) {
+  const label = EVENT_LABEL[body.type] || body.type;
+  const total = Number(body.total) || 0;
+  const lines = [total ? `${label} — $${total}` : label];
+
+  (Array.isArray(body.items) ? body.items : []).slice(0, 12).forEach((i) => {
+    const size = i.grams >= 1000 ? `${i.grams / 1000} кг` : `${i.grams} г`;
+    lines.push(`  ${String(i.name || i.id).slice(0, 40)} ${size} × ${Number(i.qty) || 1}`);
+  });
+
+  /* Город и страна берём из заголовков Cloudflare: IP никуда не пишем. */
+  const where = [cf && cf.city, cf && cf.country].filter(Boolean).join(", ");
+  const tail = [where, body.lang, body.page].filter(Boolean).join(" · ");
+  if (tail) lines.push(tail.slice(0, 120));
+
+  return lines.join("\n");
 }
 
 function orderText(input) {
@@ -767,10 +857,10 @@ async function handleMessage(env, sessionId, text) {
 }
 
 /* ---------- точка входа ---------- */
-const json = (obj, status = 200) =>
+const json = (obj, status = 200, extraHeaders = {}) =>
   new Response(JSON.stringify(obj, null, 2), {
     status,
-    headers: { "content-type": "application/json; charset=utf-8" },
+    headers: { "content-type": "application/json; charset=utf-8", ...extraHeaders },
   });
 
 export default {
@@ -790,6 +880,9 @@ export default {
           CRISP_API_KEY: !!env.CRISP_API_KEY,
           CRISP_WEBSITE_ID: !!env.CRISP_WEBSITE_ID,
           OWNER_PHONE: !!env.OWNER_PHONE,
+          TELEGRAM_BOT_TOKEN: !!env.TELEGRAM_BOT_TOKEN,
+          TELEGRAM_CHAT_ID: !!env.TELEGRAM_CHAT_ID,
+          NTFY_TOPIC: !!env.NTFY_TOPIC,
         },
       });
 
@@ -834,6 +927,37 @@ export default {
       }
       return json(out);
     }
+    /* Маячок с сайта: POST /event */
+    if (url.pathname === "/event") {
+      const origin = request.headers.get("Origin") || "";
+      const allowed = ALLOWED_ORIGINS.includes(origin);
+
+      if (request.method === "OPTIONS")
+        return new Response(null, {
+          status: allowed ? 204 : 403,
+          headers: allowed ? corsHeaders(origin) : {},
+        });
+
+      if (request.method !== "POST") return json({ error: "POST only" }, 405);
+      if (!allowed) return json({ error: "origin not allowed" }, 403);
+
+      const headers = corsHeaders(origin);
+      if (rateLimited()) return json({ ok: true, skipped: "rate limit" }, 200, headers);
+
+      let body;
+      try {
+        const raw = await request.text();
+        if (raw.length > 4000) return json({ error: "too large" }, 413, headers);
+        body = JSON.parse(raw);
+      } catch {
+        return json({ error: "bad json" }, 400, headers);
+      }
+      if (!EVENT_LABEL[body.type]) return json({ error: "unknown type" }, 400, headers);
+
+      ctx.waitUntil(notifyOwner(env, eventText(body, request.cf)).catch((e) => console.log("event notify", e)));
+      return json({ ok: true }, 200, headers);
+    }
+
     if (request.method !== "POST" || url.pathname !== "/crisp/webhook")
       return json({ error: "not found", try: ["/health", "/selftest?key=…", "POST /crisp/webhook"] }, 404);
 
