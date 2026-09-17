@@ -735,6 +735,18 @@ const corsHeaders = (origin) => ({
   "Access-Control-Max-Age": "86400",
 });
 
+/* Последние вебхуки от Crisp — чтобы при отладке было видно, доходят ли они
+   вообще и какое событие приходит. Живёт в памяти изолята: после простоя
+   очищается, для разовой проверки этого достаточно, а лишнего хранилища
+   ради отладки заводить не хочется. */
+const RECENT = [];
+const RECENT_MAX = 10;
+
+function remember(entry) {
+  RECENT.unshift({ at: new Date().toISOString(), ...entry });
+  if (RECENT.length > RECENT_MAX) RECENT.length = RECENT_MAX;
+}
+
 const EVENT_LABEL = {
   cart: "Набирают корзину",
   order: "Нажали «Оформить заказ»",
@@ -927,6 +939,20 @@ export default {
       }
       return json(out);
     }
+    /* Что прилетало от Crisp за последнее время. Открывается тем же ключом,
+       что и /selftest. Содержимое сообщений обрезается до 80 символов. */
+    if (request.method === "GET" && url.pathname === "/webhook-log") {
+      if (!env.CRISP_WEBSITE_ID || url.searchParams.get("key") !== env.CRISP_WEBSITE_ID)
+        return json({ error: "add ?key=<CRISP_WEBSITE_ID>" }, 403);
+      return json({
+        received: RECENT.length,
+        hint: RECENT.length
+          ? "если тут пусто после сообщения в чат — вебхук не настроен или указан не тот адрес"
+          : "напиши что-нибудь в чат на сайте и обнови эту страницу",
+        events: RECENT,
+      });
+    }
+
     /* Маячок с сайта: POST /event */
     if (url.pathname === "/event") {
       const origin = request.headers.get("Origin") || "";
@@ -959,20 +985,42 @@ export default {
     }
 
     if (request.method !== "POST" || url.pathname !== "/crisp/webhook")
-      return json({ error: "not found", try: ["/health", "/selftest?key=…", "POST /crisp/webhook"] }, 404);
+      return json({ error: "not found", try: ["/health", "/selftest?key=…", "/webhook-log?key=…", "POST /event", "POST /crisp/webhook"] }, 404);
 
     let data;
     try {
       data = await request.json();
     } catch {
+      remember({ event: "(не разобрался в теле запроса)", acted: false });
       return new Response("ok");
     }
-    if (data.event !== "message:send") return new Response("ok");
 
     const d = data.data || {};
     const text = typeof d.content === "string" ? d.content : "";
-    if (!text || !d.session_id || d.origin === "operator" || d.from === "operator")
-      return new Response("ok");
+    const fromOperator = d.origin === "operator" || d.from === "operator";
+
+    /* Отвечаем только на сообщения посетителя. Свои же ответы Crisp присылает
+       обратно тем же вебхуком — без этой проверки бот заговорит сам с собой. */
+    const acted = data.event === "message:send" && !!text && !!d.session_id && !fromOperator;
+
+    remember({
+      event: data.event || "(без имени)",
+      from: d.from || d.origin || null,
+      session: d.session_id ? String(d.session_id).slice(0, 12) + "…" : null,
+      text: text ? text.slice(0, 80) : null,
+      acted,
+      why: acted
+        ? null
+        : data.event !== "message:send"
+        ? "не message:send"
+        : fromOperator
+        ? "сообщение оператора, не посетителя"
+        : !text
+        ? "пустой текст"
+        : "нет session_id",
+    });
+
+    if (!acted) return new Response("ok");
 
     /* отвечаем в фоне: Crisp ждёт быстрый 200 */
     ctx.waitUntil(
