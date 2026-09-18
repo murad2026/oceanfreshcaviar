@@ -964,13 +964,44 @@ export default {
         out.claude = { ok: false, error: String(e).slice(0, 200) };
       }
 
+      /* Пробуем список разговоров. Он требует скопа sessions:read, которым
+         сам бот не пользуется: ему нужен только messages (read + write).
+         Поэтому отказ именно по этому скопу — не поломка, а лишь признак,
+         что проверять полноту прав этим способом не выходит. Зато он
+         доказывает главное: ключи верные, иначе был бы 401, а не 403. */
       try {
         const r = await fetch(`${CRISP_API}/${env.CRISP_WEBSITE_ID}/conversations/1`, {
           headers: { Authorization: crispAuth(env), "X-Crisp-Tier": "plugin" },
         });
-        out.crisp = r.ok
-          ? { ok: true, conversations: ((await r.json()).data || []).length }
-          : { ok: false, status: r.status, error: (await r.text()).slice(0, 300) };
+        if (r.ok) {
+          out.crisp = { ok: true, conversations: ((await r.json()).data || []).length };
+        } else {
+          const raw = await r.text();
+          let reason = null;
+          let scope = null;
+          try {
+            const e = JSON.parse(raw);
+            reason = e.reason || null;
+            scope = (e.data && e.data.scope) || null;
+          } catch {
+            /* не JSON — оставляем как есть */
+          }
+          const onlyExtraScope =
+            r.status === 403 &&
+            reason === "token_scope_forbidden" &&
+            scope === "website:conversation:sessions";
+
+          out.crisp = onlyExtraScope
+            ? {
+                ok: true,
+                auth: "ключи верные — Crisp узнал токен",
+                note:
+                  "скоп website:conversation:sessions не выдан, но боту он не нужен: " +
+                  "тот работает через website:conversation:messages (read + write). " +
+                  "Проверить их этой командой нельзя — она бы написала в чей-то чат.",
+              }
+            : { ok: false, status: r.status, error: raw.slice(0, 300) };
+        }
       } catch (e) {
         out.crisp = { ok: false, error: String(e).slice(0, 200) };
       }
