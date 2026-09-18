@@ -287,7 +287,15 @@ function orderText(input) {
 async function askClaude(env, messages) {
   const body = {
     model: env.MODEL || "claude-opus-5",
-    max_tokens: 1024,
+    /* У Opus 5 размышление включено по умолчанию, и его токены входят в этот
+       лимит. При 1024 длинное рассуждение съедало бюджет раньше, чем модель
+       доходила до текста, и посетитель получал молчание. */
+    max_tokens: 4096,
+    /* Разговор о каталоге глубокого рассуждения не требует: низкое усилие
+       отвечает быстрее и дешевле. Отключать размышление совсем нельзя —
+       тогда Opus 5 иногда пишет вызов инструмента обычным текстом, и заказ
+       через create_order потерялся бы молча. */
+    output_config: { effort: "low" },
     system: [{ type: "text", text: systemPrompt(), cache_control: { type: "ephemeral" } }],
     tools: TOOLS,
     messages,
@@ -347,7 +355,20 @@ async function handleMessage(env, sessionId, text) {
     .map((b) => b.text)
     .join("\n")
     .trim();
-  if (out) await crispSend(env, sessionId, out);
+
+  /* Текста может не оказаться — например, бюджет ушёл на размышление.
+     Молчащий чат посетитель читает как «тут никого нет», поэтому лучше
+     честная короткая реплика, чем пустота. */
+  if (out) {
+    await crispSend(env, sessionId, out);
+  } else {
+    console.log("пустой ответ, stop_reason:", reply.stop_reason);
+    await crispSend(
+      env,
+      sessionId,
+      "Извините, не смог собрать ответ. Напишите сообщением на +1 (617) 372-4119 — ответим сразу."
+    );
+  }
 }
 
 /* ---------- точка входа ---------- */
@@ -425,7 +446,10 @@ export default {
           },
           body: JSON.stringify({
             model: env.MODEL || "claude-opus-5",
-            max_tokens: 32,
+            /* Не меньше пары сотен: размышление тратит тот же бюджет, и при
+               32 токенах ответ обрывался до первого текстового блока. */
+            max_tokens: 256,
+            output_config: { effort: "low" },
             messages: [{ role: "user", content: "Ответь одним словом: работает" }],
           }),
         });
@@ -440,6 +464,7 @@ export default {
                 .map((b) => b.text)
                 .join(" ")
                 .trim(),
+              stop_reason: JSON.parse(body).stop_reason,
             }
           : { ok: false, status: r.status, error: body.slice(0, 300) };
       } catch (e) {
