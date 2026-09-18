@@ -402,8 +402,17 @@ export default {
           }),
         });
         const body = await r.text();
+        /* Текст берём так же, как его берёт сам бот: первым блоком может
+           прийти не текст, и тогда наивное content[0].text даёт пустоту. */
         out.claude = r.ok
-          ? { ok: true, reply: (JSON.parse(body).content || [])[0]?.text || "" }
+          ? {
+              ok: true,
+              reply: (JSON.parse(body).content || [])
+                .filter((b) => b.type === "text")
+                .map((b) => b.text)
+                .join(" ")
+                .trim(),
+            }
           : { ok: false, status: r.status, error: body.slice(0, 300) };
       } catch (e) {
         out.claude = { ok: false, error: String(e).slice(0, 200) };
