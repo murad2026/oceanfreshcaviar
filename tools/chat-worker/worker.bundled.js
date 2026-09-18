@@ -869,6 +869,21 @@ async function handleMessage(env, sessionId, text) {
 }
 
 /* ---------- точка входа ---------- */
+/* Форма секрета без его раскрытия: длина, два символа по краям и признак
+   лишних пробелов. Этого хватает, чтобы поймать обрезанное при копировании
+   значение или прихваченный пробел, и мало, чтобы значение восстановить. */
+function shapeOf(v) {
+  if (!v) return null;
+  const s = String(v);
+  return {
+    len: s.length,
+    head: s.slice(0, 2),
+    tail: s.slice(-2),
+    hasOuterSpace: s !== s.trim(),
+    hasInnerSpace: /\s/.test(s.trim()),
+  };
+}
+
 const json = (obj, status = 200, extraHeaders = {}) =>
   new Response(JSON.stringify(obj, null, 2), {
     status,
@@ -896,6 +911,19 @@ export default {
           TELEGRAM_CHAT_ID: !!env.TELEGRAM_CHAT_ID,
           NTFY_TOPIC: !!env.NTFY_TOPIC,
         },
+        /* ?shape=<CRISP_WEBSITE_ID> — форма ключей, без самих значений */
+        shapes:
+          url.searchParams.get("shape") && url.searchParams.get("shape") === env.CRISP_WEBSITE_ID
+            ? {
+                note: "ожидаем: CRISP_API_ID ~36 символов, CRISP_API_KEY ~64, пробелов быть не должно",
+                CRISP_API_ID: shapeOf(env.CRISP_API_ID),
+                CRISP_API_KEY: shapeOf(env.CRISP_API_KEY),
+                CRISP_WEBSITE_ID: shapeOf(env.CRISP_WEBSITE_ID),
+                ANTHROPIC_API_KEY: shapeOf(env.ANTHROPIC_API_KEY),
+                TELEGRAM_BOT_TOKEN: shapeOf(env.TELEGRAM_BOT_TOKEN),
+                TELEGRAM_CHAT_ID: shapeOf(env.TELEGRAM_CHAT_ID),
+              }
+            : undefined,
       });
 
     /* Проверка ключа Claude и доступа к Crisp.
