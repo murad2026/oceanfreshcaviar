@@ -43,6 +43,7 @@ const catalog = {
     colour: p.profile ? en(p.profile.color) : "",
     good_for: p.profile ? en(p.profile.best) : "",
     description: en(p.description),
+    restock: p.restock ? p.restock.en : null,
     sizes: p.variants.map((v) => ({
       key: `${p.id}-${v.grams}`,
       label: v.unit ? `${v.unit} (${v.grams} g)` : `${v.grams} g`,

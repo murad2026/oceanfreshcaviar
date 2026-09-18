@@ -214,7 +214,9 @@
               ? `<em class="size-pre size-wholesale">${t("product.wholesale")}</em>`
               : v.inStock || v.stock === 0
               ? ""
-              : `<em class="size-pre">${t("product.preorder")}</em>`
+              : `<em class="size-pre">${t("product.preorder")}${
+                  loc(p.restock) ? " · " + loc(p.restock) : ""
+                }</em>`
           }</span>
           <span class="size-money">${price}${stock}</span>
           <button type="button" class="size-btn${inCart ? " is-on" : ""}${

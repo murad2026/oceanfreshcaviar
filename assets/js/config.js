@@ -40,6 +40,10 @@ const CONFIG = {
   products: [
     {
       id: "paddlefish",
+      /* Когда ждём обратно. Пишется рядом с «Под предзаказ» — покупателю
+         срок говорит больше, чем сам факт отсутствия. Убрать, когда
+         позиция вернётся в наличие. */
+      restock: { ru: "ждём в октябре", en: "back in October" },
       profile: {
         color: { ru: "стально-серый", en: "steel grey" },
         taste: { ru: "мягкий, чуть землистый, без резкости", en: "soft, faintly earthy, no sharp edge" },
@@ -63,6 +67,10 @@ const CONFIG = {
     },
     {
       id: "hackleback",
+      /* Когда ждём обратно. Пишется рядом с «Под предзаказ» — покупателю
+         срок говорит больше, чем сам факт отсутствия. Убрать, когда
+         позиция вернётся в наличие. */
+      restock: { ru: "ждём в октябре", en: "back in October" },
       profile: {
         color: { ru: "тёмно-серый, почти чёрный", en: "dark grey, nearly black" },
         taste: { ru: "насыщенный, ореховый, с морской нотой", en: "rich and nutty with a note of the sea" },

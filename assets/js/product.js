@@ -64,7 +64,9 @@
           ? `<em class="size-pre size-wholesale">${t("product.wholesale")}</em>`
           : v.inStock
           ? ""
-          : `<em class="size-pre">${t("product.preorder")}</em>`;
+          : `<em class="size-pre">${t("product.preorder")}${
+              loc(P.restock) ? " · " + loc(P.restock) : ""
+            }</em>`;
         return `<li class="size-row">
           <span class="size-g">${
             v.unit ? `${v.unit}<em class="size-sub">${gramsLabel(v.grams)}${v.pack ? " · " + loc(v.pack) : ""}</em>` : gramsLabel(v.grams)
