@@ -8,6 +8,7 @@
    Токен не секрет: он открыто лежит в исходном коде любой страницы,
    где стоит эта аналитика, и годится только для приёма статистики. */
 (() => {
+  if (window.OFC_MUTED) return;
   const token = ((typeof CONFIG !== "undefined" && CONFIG.analytics) || {}).cloudflare;
   if (!token) return;
   const s = document.createElement("script");

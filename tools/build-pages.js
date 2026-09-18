@@ -129,6 +129,7 @@ ${productLd(p)}
 </footer>
 
 <script>window.PRODUCT_ID = ${JSON.stringify(p.id)};</script>
+<script src="../assets/js/mute.js"></script>
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/i18n.js"></script>
 <script src="../assets/js/shipping.js"></script>
