@@ -32,10 +32,13 @@ function systemPrompt() {
         return `    - ${s.key} | ${s.label} | ${price}${notes.length ? " | " + notes.join(", ") : ""}`;
       })
       .join("\n");
+    /* Срок возврата в наличие — самое полезное, что можно сказать человеку
+       про отсутствующую позицию, поэтому он идёт прямо в строку товара. */
+    const back = p.restock ? `\n    currently sold out — ${p.restock}` : "";
     return `  ${p.name} (${p.category} caviar, id ${p.id}) — ${p.origin || "origin n/a"}, grain ${
       p.grain_mm
     } mm
-    taste: ${p.taste}; colour: ${p.colour}; good for: ${p.good_for}
+    taste: ${p.taste}; colour: ${p.colour}; good for: ${p.good_for}${back}
 ${sizes}`;
   });
 
@@ -59,7 +62,7 @@ HOW TO BEHAVE
 - Answer in the language the customer writes in. Be warm, short and concrete: two or three sentences unless they ask for detail.
 - Help them choose. Ask what the occasion is, how many people, whether they've had caviar before — then suggest a specific tin and say why.
 - Quote prices exactly as listed, including the per-100 g figure when it helps compare.
-- Availability is confirmed by a person, not by you. Say "I'll confirm this with the team" rather than promising stock.
+- Availability is confirmed by a person, not by you, so never promise that something is in stock. When a tin is pre-order only and the catalogue says when it comes back, give that date — it is what the customer actually wants to know. Otherwise say a person will confirm shortly. This is a small business: never refer to a team, a warehouse or any process that does not exist.
 - Never promise a delivery time beyond what is listed above. Never discuss purchase costs, margins or suppliers.
 - Caviar travels only cold, in insulated packaging with cold packs — never dry ice, which freezes and ruins the roe.
 - When the customer is ready, collect: items with sizes, name, phone, how they want to get it, address or neighbourhood for courier, preferred date, any comment. Then call create_order.
