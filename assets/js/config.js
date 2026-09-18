@@ -298,6 +298,14 @@ const CONFIG = {
      обратно — ?mute=0. Метка живёт в браузере, на каждом устройстве своя. */
   notify: { url: "https://oceanfresh-chat.canalkrosh.workers.dev/event", quietMs: 90000 },
 
+  /* ---------- 5c. АНАЛИТИКА ----------------------------------------------
+     Токен Cloudflare Web Analytics. null — скрипт не грузится совсем.
+     Взять: dash.cloudflare.com → Analytics & Logs → Web Analytics →
+     Add a site → oceanfreshcaviar.com → скопировать значение "token"
+     из выданного сниппета.
+     Это не секрет: токен виден в исходном коде страницы. */
+  analytics: { cloudflare: null },
+
   /* ---------- 6. ОТЗЫВЫ ----------
      Появляются на странице позиции. product — id товара (без него отзыв
      виден у всех позиций), photo — путь к файлу от корня сайта.
