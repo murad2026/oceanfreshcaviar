@@ -23,7 +23,7 @@ const catalog = {
   "contacts": {
     "phone": "+1 (617) 372-4119",
     "instagram": "oceanfreshcaviar",
-    "email": null,
+    "email": "info@oceanfreshcaviar.com",
     "city": "Boston, MA"
   },
   "shipping": [
