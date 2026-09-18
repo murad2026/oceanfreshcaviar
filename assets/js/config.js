@@ -304,7 +304,7 @@ const CONFIG = {
      Add a site → oceanfreshcaviar.com → скопировать значение "token"
      из выданного сниппета.
      Это не секрет: токен виден в исходном коде страницы. */
-  analytics: { cloudflare: null },
+  analytics: { cloudflare: "c5802f14efa64282ae4d6301d620a35e" },
 
   /* ---------- 6. ОТЗЫВЫ ----------
      Появляются на странице позиции. product — id товара (без него отзыв

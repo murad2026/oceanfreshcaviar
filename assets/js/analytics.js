@@ -11,7 +11,9 @@
   const token = ((typeof CONFIG !== "undefined" && CONFIG.analytics) || {}).cloudflare;
   if (!token) return;
   const s = document.createElement("script");
-  s.defer = true;
+  /* Cloudflare отдаёт маячок как модуль — так же, как в их сниппете.
+     Модули и так откладываются до разбора страницы, defer тут лишний. */
+  s.type = "module";
   s.src = "https://static.cloudflareinsights.com/beacon.min.js";
   s.setAttribute("data-cf-beacon", JSON.stringify({ token }));
   document.head.appendChild(s);
