@@ -11,6 +11,29 @@
   const URL_ = CFG.url;
   if (!URL_) return;
 
+  /* Свои же заходы не должны будить телефон: на сайт владелец ходит чаще
+     любого покупателя. ?mute=1 выключает маячок на этом устройстве
+     навсегда, ?mute=0 включает обратно. Метка лежит в localStorage, то есть
+     привязана к браузеру, а не к человеку — с другого устройства придётся
+     повторить.                                                            */
+  const MUTE_KEY = "ofc-notify-mute";
+
+  try {
+    const wanted = new URLSearchParams(location.search).get("mute");
+    if (wanted === "1" || wanted === "0") {
+      if (wanted === "1") localStorage.setItem(MUTE_KEY, "1");
+      else localStorage.removeItem(MUTE_KEY);
+      console.log(
+        wanted === "1"
+          ? "Ocean Fresh: уведомления с этого устройства отключены"
+          : "Ocean Fresh: уведомления с этого устройства включены"
+      );
+    }
+    if (localStorage.getItem(MUTE_KEY) === "1") return;
+  } catch (e) {
+    /* приватный режим или запрещённые куки — просто работаем как обычно */
+  }
+
   /* Корзину собирают в несколько кликов. Ждём паузу и шлём один раз,
      иначе на каждую банку прилетает отдельный пуш. */
   const QUIET_MS = Number(CFG.quietMs) || 90000;
