@@ -250,6 +250,10 @@ function eventText(body, cf) {
   const tail = [where, body.lang, body.page].filter(Boolean).join(" · ");
   if (tail) lines.push(tail.slice(0, 120));
 
+  /* Источник отдельной строкой: по нему считается стоимость привлечения,
+     и его надо видеть, не разбирая остальное. */
+  if (body.src) lines.push("источник: " + String(body.src).slice(0, 80));
+
   return lines.join("\n");
 }
 

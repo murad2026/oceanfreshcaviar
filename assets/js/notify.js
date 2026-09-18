@@ -50,6 +50,50 @@
       .sort()
       .join("|");
 
+  /* Откуда пришёл человек. Метки живут только на первой открытой ссылке:
+     дальше он ходит по каталогу и карточкам, и параметры теряются. Поэтому
+     запоминаем источник на вкладку и считаем первое касание — именно оно
+     привело покупателя, а не внутренние переходы после.                  */
+  const SRC_KEY = "ofc-src";
+
+  function trafficSource() {
+    try {
+      const saved = sessionStorage.getItem(SRC_KEY);
+      if (saved) return saved;
+    } catch (e) {
+      /* приватный режим — просто считаем заново на каждой странице */
+    }
+
+    const q = new URLSearchParams(location.search);
+    const utm = q.get("utm_source");
+    let src;
+
+    if (utm) {
+      const campaign = q.get("utm_campaign") || q.get("utm_content");
+      src = campaign ? `${utm} / ${campaign}` : utm;
+    } else if (q.get("fbclid") || q.get("igshid")) {
+      src = "instagram/facebook";
+    } else if (q.get("gclid")) {
+      src = "google ads";
+    } else if (document.referrer) {
+      try {
+        const host = new URL(document.referrer).hostname.replace(/^www\./, "");
+        /* переходы внутри сайта источником не считаем */
+        src = host === location.hostname.replace(/^www\./, "") ? "" : host;
+      } catch (e) {
+        src = "";
+      }
+    }
+
+    src = (src || "прямой заход").slice(0, 80);
+    try {
+      sessionStorage.setItem(SRC_KEY, src);
+    } catch (e) {
+      /* не сохранилось — не страшно, посчитаем в следующий раз */
+    }
+    return src;
+  }
+
   const body = (type, snap) =>
     JSON.stringify({
       type,
@@ -57,6 +101,7 @@
       total: (snap && snap.total) || 0,
       page: location.pathname,
       lang: document.documentElement.lang || "",
+      src: trafficSource(),
     });
 
   function send(type, snap) {
@@ -82,6 +127,11 @@
       /* тоже молча */
     }
   }
+
+  /* Считаем источник сразу, а не при отправке события: метки живут только
+     в адресе открытой ссылки, и к моменту, когда человек наберёт корзину,
+     он уже успеет уйти на карточку товара и вернуться. */
+  trafficSource();
 
   document.addEventListener("ofc:cart", (e) => {
     latest = e.detail;
