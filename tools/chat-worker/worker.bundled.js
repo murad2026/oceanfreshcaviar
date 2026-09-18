@@ -15,7 +15,7 @@
 
 /* каталог вшит при сборке — node tools/build-worker-bundle.js */
 const catalog = {
-  "updated": "2026-08-27",
+  "updated": "2026-09-18",
   "season": {
     "show": true,
     "harvestEnds": "2026-10-20"
@@ -67,7 +67,7 @@ const catalog = {
           "grams": 125,
           "price_usd": 100,
           "per_100g_usd": 80,
-          "in_stock": true,
+          "in_stock": false,
           "wholesale": false,
           "stock_left": null
         },
@@ -77,7 +77,7 @@ const catalog = {
           "grams": 250,
           "price_usd": 180,
           "per_100g_usd": 72,
-          "in_stock": true,
+          "in_stock": false,
           "wholesale": false,
           "stock_left": null
         },
@@ -87,7 +87,7 @@ const catalog = {
           "grams": 500,
           "price_usd": 350,
           "per_100g_usd": 70,
-          "in_stock": true,
+          "in_stock": false,
           "wholesale": false,
           "stock_left": null
         },
@@ -120,7 +120,7 @@ const catalog = {
           "grams": 125,
           "price_usd": 125,
           "per_100g_usd": 100,
-          "in_stock": true,
+          "in_stock": false,
           "wholesale": false,
           "stock_left": null
         },
@@ -130,7 +130,7 @@ const catalog = {
           "grams": 250,
           "price_usd": 240,
           "per_100g_usd": 96,
-          "in_stock": true,
+          "in_stock": false,
           "wholesale": false,
           "stock_left": null
         },
@@ -140,7 +140,7 @@ const catalog = {
           "grams": 500,
           "price_usd": 450,
           "per_100g_usd": 90,
-          "in_stock": true,
+          "in_stock": false,
           "wholesale": false,
           "stock_left": null
         },
