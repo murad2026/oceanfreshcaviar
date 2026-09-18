@@ -426,6 +426,31 @@
     return !!ok;
   }
 
+  const onPhone = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  /* Виджет чата грузится не всегда: его режут блокировщики, да и сам ключ
+     может быть не задан. Настоящий клиент появляется вместе с методом is —
+     по нему и проверяем, а не по самому массиву $crisp, который существует
+     ещё до загрузки скрипта. */
+  function openChatWithOrder(text) {
+    const c = window.$crisp;
+    if (!c || typeof c.is !== "function") return false;
+    try {
+      c.push(["set", "message:text", [text]]);
+      c.push(["do", "chat:open"]);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function showSendHint(html) {
+    const el = document.getElementById("sendHint");
+    if (!el) return;
+    el.innerHTML = html;
+    el.hidden = false;
+  }
+
   function sendLink(text) {
     const c = CONFIG.contacts;
     const enc = encodeURIComponent(text);
@@ -437,16 +462,34 @@
     if (ch === "whatsapp" && c.phone) return `https://wa.me/${c.phone}?text=${enc}`;
     /* sms: на телефоне открывает сообщение, на компьютере не работает —
        там уходим в почту, если она есть. */
-    const isPhone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (!isPhone && c.email) return mail();
+    if (!onPhone() && c.email) return mail();
     return `sms:+${c.phone}?&body=${enc}`;
   }
 
   document.getElementById("orderForm").addEventListener("submit", (e) => {
     e.preventDefault();
     if (!validate()) return;
+    const msg = buildMessage();
     document.dispatchEvent(new CustomEvent("ofc:order", { detail: cartSnapshot() }));
-    window.open(sendLink(buildMessage()), "_blank", "noopener");
+
+    /* На телефоне ссылка sms: открывает сообщение и всё работает. На
+       компьютере она чаще всего не открывает ничего, и человек остаётся
+       с ощущением сломанной кнопки. Поэтому там ведём в чат, а если и он
+       недоступен — кладём заказ в буфер и показываем, куда его отправить. */
+    if (!onPhone() && !CONFIG.contacts.email) {
+      if (openChatWithOrder(msg)) {
+        showSendHint(t("order.sentChat"));
+        return;
+      }
+      const phone = CONFIG.contacts.phoneDisplay || CONFIG.contacts.phone;
+      const tell = () => showSendHint(`${t("order.sentCopy")} <strong>${phone}</strong>`);
+      navigator.clipboard
+        ? navigator.clipboard.writeText(msg).then(tell, () => window.prompt(t("order.copy"), msg))
+        : window.prompt(t("order.copy"), msg);
+      return;
+    }
+
+    window.open(sendLink(msg), "_blank", "noopener");
   });
 
   document.getElementById("copyBtn").addEventListener("click", async (e) => {
