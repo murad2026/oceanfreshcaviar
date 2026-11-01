@@ -299,12 +299,16 @@ const CONFIG = {
   notify: { url: "https://oceanfresh-chat.canalkrosh.workers.dev/event", quietMs: 90000 },
 
   /* ---------- 5c. АНАЛИТИКА ----------------------------------------------
-     Токен Cloudflare Web Analytics. null — скрипт не грузится совсем.
-     Взять: dash.cloudflare.com → Analytics & Logs → Web Analytics →
-     Add a site → oceanfreshcaviar.com → скопировать значение "token"
-     из выданного сниппета.
-     Это не секрет: токен виден в исходном коде страницы. */
-  analytics: { cloudflare: "c5802f14efa64282ae4d6301d620a35e" },
+     cloudflare — токен Cloudflare Web Analytics: посещаемость, страницы,
+       источники. Без кук, поэтому не требует баннера о согласии.
+     ga4 — идентификатор Google Analytics 4 вида G-XXXXXXXXXX: воронки,
+       события, конверсии. Ставит куки.
+     Любое поле null — соответствующий счётчик не грузится совсем.
+     Ни то, ни другое не секрет: оба видны в исходном коде страницы. */
+  analytics: {
+    cloudflare: "c5802f14efa64282ae4d6301d620a35e",
+    ga4: "G-PTTX5YE239",
+  },
 
   /* ---------- 6. ОТЗЫВЫ ----------
      Появляются на странице позиции. product — id товара (без него отзыв

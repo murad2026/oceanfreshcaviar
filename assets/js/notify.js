@@ -88,7 +88,36 @@
       src: trafficSource(),
     });
 
+  /* Те же события уходят в Google Analytics, если он подключён. Без этого
+     GA4 считал бы только заходы, а связь «источник → заявка» пропадала.
+     Имена взяты стандартные, кроме ухода с корзиной: такого события у
+     GA4 нет. generate_lead и есть та конверсия, которую стоит отмечать
+     в отчётах, — оплаты на сайте нет, заказ завершается в разговоре. */
+  const GA_EVENT = { cart: "add_to_cart", order: "generate_lead", abandon: "cart_abandoned" };
+
+  function toAnalytics(type, snap) {
+    /* analytics.js грузится после нас, но события летят секундами позже,
+       так что к этому моменту gtag уже на месте. */
+    if (typeof window.gtag !== "function") return;
+    try {
+      window.gtag("event", GA_EVENT[type] || type, {
+        currency: "USD",
+        value: (snap && snap.total) || 0,
+        items: ((snap && snap.items) || []).map((i) => ({
+          item_id: i.id,
+          item_name: i.name,
+          item_variant: i.grams + "g",
+          price: i.price,
+          quantity: i.qty,
+        })),
+      });
+    } catch (e) {
+      /* счётчик не должен ломать отправку заказа */
+    }
+  }
+
   function send(type, snap) {
+    toAnalytics(type, snap);
     try {
       fetch(URL_, {
         method: "POST",
@@ -104,6 +133,7 @@
 
   /* Уход со страницы: fetch уже могут не дать доделать, нужен sendBeacon. */
   function sendOnExit(type, snap) {
+    toAnalytics(type, snap);
     try {
       const blob = new Blob([body(type, snap)], { type: "text/plain;charset=UTF-8" });
       if (!navigator.sendBeacon || !navigator.sendBeacon(URL_, blob)) send(type, snap);
