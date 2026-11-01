@@ -45,6 +45,7 @@ const I18N = {
     "how.3.d": "Доставляем по Бостону в холодовой упаковке и передаём лично в руки в оговорённое время.",
 
     "season.title": "Сезон сбора закрывается 20 октября",
+    "season.titleOver": "Сбор завершён — продаём из заложенного запаса",
     "season.p": "Икру закладывают раз в год. После окончания сбора продаётся только то, что успели заложить, — количество ограничено, и по мере того как запас тает, цена растёт.",
     "season.pre": "Бесплатный предзаказ фиксирует за вами сегодняшнюю цену: мы связываемся, подтверждаем наличие и держим банку за вами.",
     "season.left": "дней до конца сбора",
@@ -197,6 +198,7 @@ const I18N = {
     "how.3.d": "We bring it across Boston in cold packaging and hand it to you personally at the agreed time.",
 
     "season.title": "The harvest closes on 20 October",
+    "season.titleOver": "The harvest is over — we sell what was laid down",
     "season.p": "Caviar is laid down once a year. Once the harvest ends we sell only what we put away — quantities are limited, and as the stock runs down the price goes up.",
     "season.pre": "A free pre-order locks in today's price: we get in touch, confirm availability and hold the tin for you.",
     "season.left": "days until the harvest ends",

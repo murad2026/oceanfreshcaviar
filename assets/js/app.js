@@ -123,12 +123,17 @@
     const days = Math.ceil((end - new Date()) / 86400000);
     const num = document.getElementById("seasonDays");
     const label = document.getElementById("seasonDaysLabel");
+    const title = box.querySelector('[data-i18n="season.title"]');
     if (days > 0) {
       num.textContent = days;
       label.textContent = t("season.left");
+      if (title) title.textContent = t("season.title");
     } else {
+      /* Заголовок тоже переключаем: иначе после даты сбора он обещает
+         будущее событие, которое уже прошло, и спорит с подписью. */
       num.textContent = "";
       label.textContent = t("season.over");
+      if (title) title.textContent = t("season.titleOver");
     }
     box.classList.toggle("is-over", days <= 0);
   }
